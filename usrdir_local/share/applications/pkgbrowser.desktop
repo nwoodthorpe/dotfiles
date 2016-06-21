@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=PkgBrowser
+GenericName=Package Browser
+Comment=A utility for browsing pacman databases and the AUR
+Exec=pkgbrowser
+Terminal=false
+Type=Application
+Icon=gpk-log
+StartupNotify=false
+Categories=Qt;System;
+NoDisplay=false

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="active_dir" mtime="1457057557" type="string">
+		<stringvalue>/home/bios/Music/A-One/2015 - TOHO EUROBEAT VOL.13 LEGACY OF LUNATIC KINGDOM</stringvalue>
+	</entry>
+	<entry name="root_dir" mtime="1457057557" type="string">
+		<stringvalue>/</stringvalue>
+	</entry>
+	<entry name="autopreview" mtime="1457058135" type="bool" value="false"/>
+	<entry name="keepext" mtime="1457058135" type="bool" value="false"/>
+	<entry name="filedir" mtime="1457058135" type="int" value="0"/>
+	<entry name="options_shown" mtime="1457058135" type="bool" value="false"/>
+	<entry name="window_posy" mtime="1457058135" type="int" value="156"/>
+	<entry name="window_posx" mtime="1457058135" type="int" value="504"/>
+	<entry name="window_height" mtime="1457058135" type="int" value="805"/>
+	<entry name="window_width" mtime="1457058135" type="int" value="1100"/>
+	<entry name="window_maximized" mtime="1457058135" type="bool" value="false"/>
+	<entry name="pane_position" mtime="1457058135" type="int" value="267"/>
+</gconf>

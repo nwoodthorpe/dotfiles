@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Visual Paradigm
+Comment=Effective IT System Design, with UML & ERD
+Type=Application
+Exec=visualparadigm
+Icon=visualparadigm
+Terminal=false
+Categories=Graphics;
+StartupNotify=true

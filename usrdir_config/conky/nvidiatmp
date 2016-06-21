@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Nvidia temperature checking script, to use with conky
+
+if pgrep "nvidia-smi" > /dev/null; then
+   echo "RET"
+   exit
+fi
+
+temp="$(nvidia-smi -q -d temperature | grep "GPU Current Temp" | grep -oP "\d+")"
+
+if [ ${temp} ]; then
+    echo "${temp}°"
+else
+    echo "N/A"
+fi

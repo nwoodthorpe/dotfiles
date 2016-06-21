@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Comment=Featureful ncurses based MPD client inspired by ncmpc
+Terminal=false
+Name=NCurses Music Player Client
+Exec=urxvtc -e ncmpcpp
+Type=Application
+Icon=gnome-music
+Categories=AudioVideo;Audio;

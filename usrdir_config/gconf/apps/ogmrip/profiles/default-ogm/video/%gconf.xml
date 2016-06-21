@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="quantizer" mtime="1437808204" type="float" value="2"/>
+	<entry name="bitrate" mtime="1437808204" type="int" value="800"/>
+	<entry name="dering" mtime="1437808204" type="bool" value="false"/>
+	<entry name="trellis" mtime="1437808204" type="bool" value="true"/>
+	<entry name="passes" mtime="1437808204" type="int" value="1"/>
+	<entry name="deblock" mtime="1437808204" type="bool" value="false"/>
+	<entry name="encoding" mtime="1437808204" type="int" value="0"/>
+	<entry name="turbo" mtime="1437808204" type="bool" value="true"/>
+	<entry name="codec" mtime="1437808204" type="string">
+		<stringvalue>lavc-mpeg4</stringvalue>
+	</entry>
+	<entry name="scaler" mtime="1437808204" type="int" value="7"/>
+	<entry name="denoise" mtime="1437808204" type="bool" value="true"/>
+	<entry name="preset" mtime="1437808204" type="int" value="2"/>
+	<entry name="qpel" mtime="1437808204" type="bool" value="false"/>
+</gconf>

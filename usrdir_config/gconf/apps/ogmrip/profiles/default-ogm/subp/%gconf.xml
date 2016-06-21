@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="forced" mtime="1437808204" type="bool" value="false"/>
+	<entry name="newline" mtime="1437808204" type="int" value="0"/>
+	<entry name="spell_check" mtime="1437808204" type="bool" value="false"/>
+	<entry name="codec" mtime="1437808204" type="string">
+		<stringvalue>srt</stringvalue>
+	</entry>
+	<entry name="charset" mtime="1437808204" type="int" value="0"/>
+</gconf>

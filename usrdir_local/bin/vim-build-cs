@@ -1,0 +1,32 @@
+#!/bin/bash
+
+path="$@"
+
+projectdir="$(dirname ${path})"
+namespace="$(basename ${projectdir})"
+
+clear
+
+echo "Building project ${namespace}..."
+result="$(mdtool build "${projectdir}/${namespace}.csproj")"
+warning=$(echo $result | grep -oP "\d+ Warning\(s\)" | grep -oP "\d+")
+error=$(echo $result | grep -oP "\d+ Error\(s\)" | grep -oP "\d+")
+
+if [ ${error} -eq 0 ]; then
+    echo ""
+    echo "Project ${namespace} was built successfully."
+    echo -e "\t${warning} Warning(s), ${error} Error(s)"
+    echo ""
+    echo "Running ${namespace}.exe..."
+    echo "———————————————————————————"
+    echo ""
+    "${projectdir}/bin/Debug/${namespace}.exe"
+    status=$?
+    echo ""
+    echo "———————————————————————————"
+    echo "${namespace}.exe has finished running with status ${status}."
+else
+    echo ""
+    echo "Failed to build project ${namespace}"
+    echo -e "\t${warning} Warning(s), ${error} Error(s)"
+fi

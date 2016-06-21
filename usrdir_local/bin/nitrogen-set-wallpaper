@@ -1,0 +1,37 @@
+#!/bin/bash
+confdir="$HOME/.config/nitrogen"
+conf="${confdir}/bg-saved.cfg"
+wallpaper="${confdir}/wallpaper.png"
+
+[ "$#" -ne 1 ] && exit 1
+
+mode=$(cat "$conf" | grep mode | sed "s/mode=//")
+
+case $mode in
+    0)
+        args="--set-scaled"
+        ;;
+    1)
+        args="--set-tiled"
+        ;;
+    2)
+        args="--set-centerd"
+        ;;
+    3)
+        args="--set-zoom"
+        ;;
+    4)
+        args="--set-auto"
+        ;;
+    5)
+        args="--set-zoom-fill"
+        ;;
+    *)
+        echo "Unknown mode"
+        exit 1
+        ;;
+esac
+
+convert "$@" "${wallpaper}"
+
+nitrogen "$args" "${wallpaper}" --save

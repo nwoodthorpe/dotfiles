@@ -1,0 +1,15 @@
+#!/bin/bash
+
+conky -q -d
+#copyq &
+#insync start --no-custom-folder-icon &
+urxvtd --quiet --opendisplay --fork &
+unclutter &
+thunderbird &
+#/usr/share/android-notifier-desktop/run.sh &
+numlockx on &
+xrdb ~/.Xresources &
+mpDris2 &
+fcitx &
+syndaemon -d -k -i 2 &
+devdocs-server &

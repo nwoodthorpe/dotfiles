@@ -1,0 +1,24 @@
+#!/bin/bash
+
+NAME="Iowa"
+
+if ( (tmux -q has-session -t "$NAME") ); then
+    # Session already exist
+
+    if [ -n "$(tmux ls | grep -oP "($NAME)(.*)(attached)")" ]; then
+        # Session attached to terminal
+        # Request new window for existing session
+        exec tmux new-window -c "$PWD" -t "$NAME"
+    else
+        # Session not attached
+        # Attach session and spawn new window
+        cmd="tmux attach-session -t \"$NAME\" \; new-window -c \"$PWD\""
+    fi
+else
+    # No sessions available
+    # Create new session
+    cmd="tmux new-session -s\"$NAME\" -c \"$PWD\""
+fi
+
+# Request new terminal for new or unattached session
+exec urxvtc -geometry 135x35 -e bash -c "$cmd"

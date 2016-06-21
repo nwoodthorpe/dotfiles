@@ -1,0 +1,69 @@
+#!/bin/bash
+# Environment
+[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+
+export PANEL_FIFO=/tmp/panel-fifo
+export PATH="$HOME/.local/bin:$PATH:$HOME/.local/lib"
+export LANG=en_US.UTF-8
+export LC_TIME=en_GB.UTF-8
+export TERM="rxvt-unicode-256color"
+export DESKTOP_SESSION=gnome
+export QT_STYLE_OVERRIDE=gtk
+
+export __GL_YIELD="USLEEP"
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# BSPWM Session
+export BSPWM_TREE=/tmp/bspwm_tree.$USER
+export BSPWM_HISTORY=/tmp/bspwm_history.$USER
+export BSPWM_STACK=/tmp/bspwm_stack.$USER
+
+
+#setxkbmap -layout dvorak
+
+# Scripts
+keyboard-led-control-script 0 # Keyboard Backlight Off
+touchpad-script off # Disable touchpad
+brightness-control-script --set 15 # Set brightness level to 15
+feh-wallpaper restore
+
+# Daemons
+compton -bCGf &
+urxvtd --quiet --opendisplay --fork &
+dunst &
+powerline-daemon -q &
+syndaemon -d -k -i 2 & # disable touchpad while typing
+
+# Tray applications
+stalonetray &
+nm-applet &
+blueman-applet &
+pasystray &
+#batterymon --theme=custom_19x19 &
+cbatticon &
+thunderbird &
+/usr/share/android-notifier-desktop/run.sh &
+#insync start --no-custom-folder-icon &
+fcitx &
+#qopenvpn &
+
+# Others
+conky -qbd &
+unclutter &
+xsetroot -cursor_name left_ptr &
+numlockx on &
+cinnamon-screensaver &
+devdocs-server &
+wmname LG3D &
+
+
+#setxkbmap -layout dvorak
+
+# Tmux sessions
+#tmux has-session -t Arca || tmux new-session -d -s Arca &
+tmux has-session -t Blanc || tmux new-session -d -s Blanc &
+#tmux has-session -t Ellen || tmux new-session -d -s Ellen &
+#tmux has-session -t Noir || tmux new-session -d -s Noir &
+
+paplay "$HOME/.sounds/Inori Aizawa - Windows Voice Collection/inori_logon_japanese.wav"
+

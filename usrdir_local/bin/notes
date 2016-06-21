@@ -1,0 +1,70 @@
+#!/bin/bash
+
+dir="$HOME/.local/notes"
+# EDITOR=vim
+
+[[ ! -d $dir ]] && mkdir "$dir"
+
+cd "$dir"
+
+case "$1" in
+    ls)
+        if [[ $# -gt 1 ]]; then
+            ls -lFht --color "$dir" | grep "${@:2}"
+        else
+            ls -lFht --color "$dir"
+        fi
+        ;;
+    find)
+
+        if [[ $# -gt 1 ]]; then
+            grep --color -R "${@:2}" "$dir"
+        else
+            echo "You gave me nothing to find"
+        fi
+        ;;
+    rm)
+        if [[ $# -gt 1 ]]; then
+            rm -ivr "$dir/${@:2}"
+        else
+            echo "You gave me nothing to remove."
+        fi
+        ;;
+    mkdir)
+        if [[ $# -gt 1 ]]; then
+            mkdir -pv "$dir/${@:2}"
+        else
+            echo "You gave me nothing to create."
+        fi
+        ;;
+
+    exec)
+        if [[ $# -gt 1 ]]; then
+            ${@:2}
+        else
+            echo "You gave me nothing to execute."
+        fi
+        ;;
+    new | create)
+        if [[ $# -gt 1 ]]; then
+            if [[ -f ${@:2} ]]; then
+                echo "File's already exist"
+            else
+                touch "${@:2}"
+                echo "File created: ${@:2}"
+            fi
+        else
+            echo "You gave me nothing to create."
+        fi
+        ;;
+    edit)
+        if [[ $# -gt 1 ]]; then
+            $EDITOR "${@:2}"
+        else
+            echo "Sorry, not found"
+        fi
+        ;;
+    *)
+        $EDITOR "$@"
+        ;;
+esac

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+img="$HOME/.local/feh-wallpaper.png"
+
+[ "$#" -ne 1 ] && echo "Invalid number of arguments." && exit 1
+
+case "$1" in
+    -r | restore)
+        [ ! -f "${img}" ] && echo "Cached image not found." && exit 1
+        feh --no-fehbg --bg-fill "${img}"
+        ;;
+    *)
+        feh --no-fehbg --bg-fill "$1"
+        convert "$1" "${img}"
+esac

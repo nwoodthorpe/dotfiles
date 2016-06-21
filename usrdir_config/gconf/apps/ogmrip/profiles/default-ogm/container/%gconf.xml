@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="target_number" mtime="1437808204" type="int" value="1"/>
+	<entry name="ensure_sync" mtime="1437808204" type="bool" value="false"/>
+	<entry name="target_size" mtime="1437808204" type="int" value="700"/>
+	<entry name="format" mtime="1437808204" type="string">
+		<stringvalue>ogm</stringvalue>
+	</entry>
+	<entry name="fourcc" mtime="1437808204" type="int" value="0"/>
+</gconf>

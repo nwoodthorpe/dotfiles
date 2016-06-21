@@ -1,0 +1,13 @@
+[Added Associations]
+video/mp4=vlc-2.desktop;
+x-scheme-handler/http=exo-web-browser.desktop
+x-scheme-handler/https=exo-web-browser.desktop
+x-scheme-handler/mailto=exo-mail-reader.desktop
+x-scheme-handler/file=exo-file-manager.desktop
+x-scheme-handler/trash=exo-file-manager.desktop
+
+[Default Applications]
+inode/directory=nemo.desktop
+x-scheme-handler/tg=telegramdesktop.desktop
+text/x-arduino=arduino-arduinoide.desktop
+

@@ -1,0 +1,12 @@
+#!/bin/bash
+TMP_PKG_LIST="$HOME/.cache/pkg_list.$USER"
+TMP_PKG_ORPHANED="$HOME/.cache/pkg_orphaned.$USER"
+TMP_PKG_UPDATE="$HOME/.cache/pkg_updates.$USER"
+
+[ ! -f "$TMP_PKG_LIST" ] && touch "$TMP_PKG_LIST"
+[ ! -f "$TMP_PKG_ORPHANED" ] && touch "$TMP_PKG_ORPHANED"
+[ ! -f "$TMP_PKG_UPDATE" ] && touch "$TMP_PKG_UPDATE"
+
+pacman -Q > "$TMP_PKG_LIST"
+pacman -Qtdq > "$TMP_PKG_ORPHANED"
+checkupdates > "$TMP_PKG_UPDATE"

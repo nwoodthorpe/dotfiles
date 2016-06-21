@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "Updating local installed packages"
+
+outdated=$(pip list --user --outdated | cut -d ' ' -f 1)
+
+if [ -n "$outdated" ]; then
+    pip install --user -U $outdated
+else
+    echo "Nothing to update"
+fi

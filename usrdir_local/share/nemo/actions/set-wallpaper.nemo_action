@@ -1,0 +1,10 @@
+[Nemo Action]
+Active=true
+Name=Set as Wallpaper
+Comment=Set current image as wallpaper
+Exec=<wallpaper %F>
+Icon-Name=wallpaper
+Selection=s
+Extensions=jpg;png;gif;jpeg;apng;tiff;bmp;pdf;xcf;jpe;
+Quote=double
+EscapeSpaces=false

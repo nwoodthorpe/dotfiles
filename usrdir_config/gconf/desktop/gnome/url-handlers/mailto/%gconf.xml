@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="command" mtime="1452339405" type="string">
+		<stringvalue>thunderbird %s</stringvalue>
+	</entry>
+</gconf>

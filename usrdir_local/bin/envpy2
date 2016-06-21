@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+env_dir="$HOME/.config/virtualenv/python-2.7"
+
+deactive_env() {
+    if [ -z "$VIRTUAL_ENV" ]; then
+        deactivate
+    fi
+}
+
+trap deactive_env EXIT
+
+source "${env_dir}/bin/activate"

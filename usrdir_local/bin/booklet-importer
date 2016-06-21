@@ -1,0 +1,347 @@
+#!/usr/bin/env python3
+
+import mimetypes
+import logging
+import random
+import re
+import shutil
+import string
+import os
+
+from gi.repository import GLib
+from mutagen import id3, oggvorbis, flac, mp4, wavpack, MutagenError
+from sys import argv
+
+# Config
+conf_override = True
+conf_merge = True
+path_format = "{albumartist}/{year} — {album}/{disc}/{track} — {title}"
+audio_mime = ['audio/mp4', 'audio/mpeg', 'audio/ogg', 'audio/x-flac',
+              'audio/x-wav']
+extra_name = ['cover', 'folder', 'front',
+              'scan', 'scans', 'extra', 'bk', 'extras']
+music_dir = GLib.get_user_special_dir(GLib.USER_DIRECTORY_MUSIC)
+# music_dir = "/home/bookletchoir/tmp/importer/Music"
+replace = {
+    "/": "_",
+    # Adds more characters to replace here
+}
+
+
+def flatten(str_):
+    """Flatten the string by replacing defined key strings to val strings"""
+    for key, val in replace.items():
+        str_ = str_.replace(key, val)
+
+    return str_.strip()
+
+
+def numbering(str_):
+    """Match number until non-integer character from a string. Also add '0'
+    before number if number is smaller than 10"""
+    try:
+        str_ = re.compile("([0-9]+)").match(str_).group(1)
+    except AttributeError:
+        return ""
+
+    return str_ if int(str_) >= 10 else "0" + str_
+
+
+def randstr(lenth):
+    """ Generate a random string with desired length"""
+    return ''.join(
+        random.SystemRandom().choice(string.ascii_uppercase + string.digits)
+        for _ in range(lenth))
+
+
+def safe_extract(tags, key):
+    """ Safely extract the key from tags and handle errors.
+
+    :type tags: mutagen.*.Open()
+    :type key: str
+    :return: empty str if error occurred, otherwise str
+    """
+    try:
+        return str(tags[key][0])
+    except KeyError:
+        return ""
+    except TypeError:
+        return ""
+
+
+def merge_dir(root_src_dir, root_dst_dir, override=False):
+    """Merge 2 dirs's contents
+
+    :type root_src_dir: str
+    :type root_dst_dir: str
+    :type override: bool
+    :param override: Remove destination files if exists before moving new files
+    """
+    for src_dir, dirs_, files in os.walk(root_src_dir):
+        dst_dir = src_dir.replace(root_src_dir, root_dst_dir, 1)
+
+        if not os.path.exists(dst_dir):
+            os.makedirs(dst_dir)
+
+        for file_ in files:
+            src_file = os.path.join(src_dir, file_)
+            dst_file = os.path.join(dst_dir, file_)
+            move(src_file, dst_file, override)
+
+    logging.info('Merged "{0}" to "{1}"'.format(root_src_dir, root_dst_dir))
+
+
+def move(src, dst, override=False, merge=False):
+    """
+    Move src dir/file to dst
+
+    :type src: str
+    :type dst: str
+    :type override: bool
+    :param override: Remove destination files if exists before moving new files
+    :type merge: bool
+    :param merge: If src and dst are directories, both contents will be merged
+    """
+
+    # Quick check and skip on same files
+    try:
+        if os.path.samefile(src, dst):
+            return
+    except FileNotFoundError:
+        pass
+
+    if os.path.isdir(dst):
+        if merge:
+            merge_dir(src, dst, override)
+        else:
+            dst += ("." + randstr(10))
+    elif os.path.isfile(dst):
+        if override:
+            remove(dst, True)
+        else:
+            pre, ext = os.path.splitext(dst)
+            dst = pre + "." + randstr(10) + ext
+
+    parent_dir = os.path.dirname(dst)
+
+    if os.path.isfile(parent_dir):
+        logging.warning(
+            "Destination's parent directory is a file: {0}".format(parent_dir)
+        )
+
+        if override:
+            remove(parent_dir)
+            logging.warning("Conflict removed")
+        else:
+            logging.error(
+                'Skipping operation: "{0}" => "{1}"'.format(src, dst)
+            )
+            return
+
+    if not os.path.exists(parent_dir):
+        os.makedirs(parent_dir)
+
+    shutil.move(src, dst)
+    logging.info('Moved "{0}" => "{1}"'.format(src, dst))
+
+
+def remove(dst, force=False):
+    """Remove a directory"""
+    if os.path.isfile(dst):
+        return os.remove(dst)
+    elif os.path.isdir(dst):
+        if force:
+            shutil.rmtree(dst)
+        else:
+            try:
+                os.rmdir(dst)
+            except OSError:
+                pass
+
+
+class Tag:
+    def __init__(self, file, mime):
+        """
+        :type file: str
+        :param file: audio file to read tag
+        :type mime: str
+        :param mime: mimetype of file
+        """
+
+        self.file = file
+
+        tags = None
+
+        self.tags_name['album'] = 'album'
+        self.tags_name['artist'] = 'artist'
+        self.tags_name['albumartist'] = 'albumartist'
+        self.tags_name['disc'] = 'discnumber'
+        self.tags_name['genre'] = 'genre'
+        self.tags_name['title'] = 'title'
+        self.tags_name['track'] = 'tracknumber'
+        self.tags_name['year'] = 'date'
+
+        if mime == "audio/mpeg":
+            try:
+                tags = id3.Open(file)
+            except MutagenError:
+                raise
+
+            self.tags_name['album'] = 'TALB'
+            self.tags_name['artist'] = 'TPE1'
+            self.tags_name['albumartist'] = 'TPE2'
+            self.tags_name['disc'] = 'TPOS'
+            self.tags_name['genre'] = 'TCON'
+            self.tags_name['title'] = 'TIT2'
+            self.tags_name['track'] = 'TRCK'
+            self.tags_name['year'] = 'TDRC'
+        elif mime == "audio/mp4":
+            try:
+                tags = mp4.Open(file)
+            except MutagenError:
+                raise
+
+            self.tags_name['album'] = '\xa9alb'
+            self.tags_name['artist'] = '\xa9ART'
+            self.tags_name['albumartist'] = 'aART'
+            self.tags_name['disc'] = 'disk'
+            self.tags_name['genre'] = '\xa9gen'
+            self.tags_name['title'] = '\xa9nam'
+            self.tags_name['track'] = 'trkn'
+            self.tags_name['year'] = '\xa9day'
+        elif mime == "audio/ogg":
+            try:
+                tags = oggvorbis.Open(file)
+            except MutagenError:
+                raise
+
+        elif mime == "audio/x-flac":
+            try:
+                tags = flac.Open(file)
+            except MutagenError:
+                raise
+        elif mime == "audio/x-wav":
+            try:
+                tags = wavpack.Open(file)
+            except MutagenError:
+                raise
+
+        self.album = flatten(safe_extract(tags, self.tags_name['album']))
+        self.artist = flatten(safe_extract(tags, self.tags_name['artist']))
+        self.albumartist = flatten(
+            safe_extract(tags, self.tags_name['albumartist']))
+        self.disc = numbering(safe_extract(tags, self.tags_name['disc']))
+        self.genre = flatten(safe_extract(tags, self.tags_name['genre']))
+        self.title = flatten(safe_extract(tags, self.tags_name['title']))
+        self.track = numbering(safe_extract(tags, self.tags_name['track']))
+        self.year = numbering(safe_extract(tags, self.tags_name['year']))
+
+        # Special handle cases
+        if mime == "audio/mp4":
+            try:
+                track = str(tags[self.tags_name['track']][0][0])
+            except KeyError:
+                track = ""
+            except TypeError:
+                track = ""
+
+            self.track = numbering(track)
+
+        # Flatten tags
+
+        if not self.year.strip():
+            self.year = "0000"
+
+        if not self.disc.strip():
+            self.disc = self.disc.strip()
+
+        if not self.title.strip():  # Keep original filename
+            self.title = os.path.splitext(os.path.basename(file))[0]
+
+        if not self.track.strip():
+            self.track = "00"
+
+    def parse(self, str_):
+        return str_.format(
+            album=self.album,
+            artist=self.artist,
+            albumartist=self.albumartist,
+            disc=self.disc,
+            genre=self.genre,
+            title=self.title,
+            track=self.track,
+            year=self.year
+        ) + os.path.splitext(self.file)[1]
+
+    tags_name = {}
+
+
+if __name__ == "__main__":
+    # Get all directories
+    dirs = set()
+    argv = [os.path.abspath(path) for path in argv]
+    [[dirs.add(x[0]) for x in os.walk(item, topdown=False)] for item in argv]
+    dirs = list(dirs)
+
+    # Examine each dir and find the music root
+
+    while dirs:
+        dir_ = dirs.pop()
+
+        items = [os.path.join(dir_, item) for item in os.listdir(dir_)]
+        new_dir = None
+        extras = []
+
+        # Check all items on list
+        for item in items:
+            if os.path.isfile(item):
+                file_name, file_ext = os.path.splitext(os.path.basename(item))
+                mime = mimetypes.guess_type(item)[0]
+
+                if mime in audio_mime:  # music root folder
+                    try:
+                        tag = Tag(item, mime)
+                    except MutagenError:
+                        logging.error(
+                            'Cannot read tag for "{0}", skipping...'.format(
+                                item
+                            ))
+                        continue
+
+                    dst_file = tag.parse(path_format)
+
+                    # flatten path
+                    if dst_file.startswith("/"):
+                        dst_file = "_" + dst_file
+
+                    new_file = os.path.join(music_dir, dst_file)
+
+                    new_dir = os.path.dirname(new_file)
+
+                    # Move audio file to new dir
+                    move(item, new_file, conf_override)
+                elif file_name in extra_name:
+                    # Extra files to keep
+                    extras.append(item)
+            elif os.path.isdir(item) and \
+                    os.path.basename(item).lower() in extra_name:
+                # Extra dirs to keep
+                extras.append(item)
+
+        # Move all extra files to new dir
+        if new_dir:
+            for extra in extras:
+                if os.path.isdir(extra):
+                    # remove extra dir from dirs to scan
+                    if extra in dirs:
+                        dirs.remove(extra)
+
+                    move(extra, os.path.join(new_dir, os.path.basename(extra)),
+                         conf_override, conf_merge)
+                    remove(extra)
+                else:
+                    move(extra, os.path.join(new_dir, os.path.basename(extra)),
+                         conf_override)
+
+        # Remove empty dir
+        remove(dir_)

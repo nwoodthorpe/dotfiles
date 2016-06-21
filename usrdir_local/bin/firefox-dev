@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+exec "$HOME/Softwares/firefox-dev/firefox" $@

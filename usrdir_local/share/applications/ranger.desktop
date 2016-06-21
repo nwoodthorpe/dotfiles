@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Comment=A text-based file manager written in Python
+Terminal=false
+Name=Ranger
+Exec=ranger-urxvtc %U
+Catelogies=Utility;Core;
+Type=Application
+MimeType=inode/directory;
+Icon=final-term

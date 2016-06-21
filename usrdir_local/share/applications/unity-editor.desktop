@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=0.0.0f0
+Name=Unity Editor
+Exec=/usr/bin/unity-editor
+Icon=unity-editor-icon
+Comment=A cross-platform game engine to develop video games
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Development;Utility;Application;
+MimeType=x-scheme-handler/com.unity3d.kharma;

@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Name=Font Selector
+GenericName=GTK2 Font Selector
+Exec=gtk2fontsel
+Terminal=false
+Type=Application
+Icon=birdfont
+Categories=System;GTK;
+Comment=Font selection and preview tool

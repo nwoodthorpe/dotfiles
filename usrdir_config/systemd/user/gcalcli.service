@@ -1,0 +1,10 @@
+[Unit]
+Description=Check for agenda of google calendar
+After=dhcpcd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/bash %h/Scripts/gcalcli-service
+
+[Install]
+WantedBy=default.target

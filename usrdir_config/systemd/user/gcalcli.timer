@@ -1,0 +1,10 @@
+[Unit]
+Description=Check for agenda of google calendar, hourly
+
+[Timer]
+OnActiveSec=0
+OnUnitActiveSec=1h
+#Unit=gcalcli.service
+
+[Install]
+WantedBy=multi-user.service

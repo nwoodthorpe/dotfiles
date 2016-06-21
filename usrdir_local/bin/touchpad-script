@@ -1,0 +1,40 @@
+#!/bin/sh
+
+touchpad_id=$(xinput list | grep -i "touchpad" | grep -oP "id=\d+" | grep -oP "\d+")
+key_file="/tmp/touchpad-lock.$USER"
+
+disable_touchpad() {
+    touch "$key_file"
+    xinput disable "$touchpad_id"
+    notify-send "Touchpad disabled"
+}
+
+enable_touchpad() {
+    rm -f "$key_file"
+    xinput enable "$touchpad_id"
+    notify-send "Touchpad enabled"
+}
+
+toggle() {
+    if [ -e "$key_file" ]; then
+        enable_touchpad
+    else
+        disable_touchpad
+    fi
+}
+
+case $1 in
+    on)
+        enable_touchpad
+        ;;
+    off)
+        disable_touchpad
+        ;;
+    auto | toggle)
+        toggle
+        ;;
+esac
+
+sleep 0.1
+
+exit 0

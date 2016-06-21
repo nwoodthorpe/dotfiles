@@ -1,0 +1,18 @@
+#!/bin/bash
+
+BG_COLOR='#1B1D1E'
+FG_COLOR='gray'
+SELECTED_BG_COLOR='#1D90CD'
+SELECTED_FG_COLOR='white'
+#PROMPT=" Arch Linux `uname -r` (tty7)"
+PROMPT="Searching for.."
+FONT="Ubuntu Mono-10"
+
+/usr/bin/dmenu_run  -i -b -q \
+                    -p  "$PROMPT" \
+                    -nb "$BG_COLOR" \
+                    -nf "$FG_COLOR" \
+                    -sb "$SELECTED_BG_COLOR" \
+                    -sf "$SELECTED_FG_COLOR"\
+                    -fn "$FONT" \
+#                    -w 1800

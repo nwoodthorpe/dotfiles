@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Java Package (JAR)
+Comment=Run as Java Packaged Application.
+MimeType=application/java-archive;
+Exec=java -jar %F
+Icon=java
+Type=Application
+Terminal=false

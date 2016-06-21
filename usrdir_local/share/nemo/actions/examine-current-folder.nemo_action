@@ -1,0 +1,11 @@
+[Nemo Action]
+
+Active=true
+Name=Analyze Usage...
+Comment=Analyze the size of contents.
+Exec=/usr/bin/baobab %F
+Icon-Name=baobab
+Selection=s
+Extensions=dir;
+Quote=double
+

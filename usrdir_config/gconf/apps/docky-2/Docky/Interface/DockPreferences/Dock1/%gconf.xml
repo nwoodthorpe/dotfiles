@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="FadeOnHide" mtime="1446726922" type="bool" value="true"/>
+	<entry name="Autohide" mtime="1446726920" type="string">
+		<stringvalue>Intellihide</stringvalue>
+	</entry>
+	<entry name="ThreeDimensional" mtime="1446726913" type="bool" value="true"/>
+	<entry name="PanelMode" mtime="1446726910" type="bool" value="false"/>
+	<entry name="Plugins" mtime="1446727005" type="list" ltype="string">
+	</entry>
+	<entry name="Position" mtime="1446726873" type="string">
+		<stringvalue>Bottom</stringvalue>
+	</entry>
+	<entry name="SortList" mtime="1446727005" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>Messenger2315</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>/home/bios/.local/share/applications/firefox.desktop</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>/usr/share/applications/telegramdesktop.desktop</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>/usr/share/applications/urxvt.desktop</stringvalue>
+		</li>
+	</entry>
+	<entry name="Launchers" mtime="1446727002" type="list" ltype="string">
+	</entry>
+	<entry name="WindowManager" mtime="1419692961" type="bool" value="true"/>
+</gconf>

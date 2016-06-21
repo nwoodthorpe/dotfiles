@@ -1,0 +1,30 @@
+#!/bin/bash
+
+TMP="$HOME/.cache/gcal.$USER"
+HEADER=$(date)
+WIDTH=450
+#HEIGHT=$(expr $(cat "$TMP"| wc -l) + 3 + 9)
+HEIGHT=$(cal -3m | wc -l)
+XPOS=$(expr 1920 - $WIDTH - 10)
+YPOS=$(expr 21 + 10)
+
+[ ! -f "$TMP" ] && touch "$TMP"
+
+(
+cal_agenda=$(gcalcli agenda --nocolor)
+[ -n "$cal_agenda" ] && echo "$cal_agenda" > "$TMP"
+) &
+
+cal_events=$(cat "$TMP")
+[ -z "cal_events" ] && cal_events="No upcoming events..."
+
+(
+echo $HEADER
+echo
+cal -3m
+#echo -e "\nUpcoming Events:"
+#echo      "----------------"
+#echo "$cal_events"
+) | dzen2 -p -x "$XPOS" -y "$YPOS" -w "$WIDTH" -l "$HEIGHT" -sa 'l' -ta 'c'\
+    -title-name 'popup_calendar' \
+    -e 'onstart=uncollapse;button1=exit;button3=exit'

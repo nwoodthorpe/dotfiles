@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Comment=Text-mode interface for Git
+Terminal=False
+Name=Tig
+Exec=tig-urxvtc %u
+Type=Application
+Icon=smartgithg

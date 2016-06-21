@@ -1,0 +1,98 @@
+#!/bin/sh
+
+# Dependency: maim
+
+MODE="full"
+UPLOAD="no"
+FOLDER="$HOME/Pictures/Screenshots/"
+FILENAME="$(date +"%Y-%m-%d_%H:%M:%S")"
+EXTENSION="png"
+#-------------
+UPLOADER="$HOME/.local/bin/imgur"
+
+help() {
+    echo -e "NAME"
+    echo -e "   printscn - A small printscreen script written by me, which can also upload images to imgur."
+    echo -e ""
+    echo -e "OPTIONS"
+    echo -e "   --mode=full|window|select       - Mode to start screenshot capture."
+    echo -e "                                   + full: Fullscreen."
+    echo -e "                                   + window: Current active window."
+    echo -e "                                   + select: Selected area by cursor."
+    echo -e "                                   - [Default] full"
+    echo -e "   --upload=yes|no                 - Upload captured file to Imgur and copy link to clipboard."
+    echo -e "                                   - [Default] no"
+    echo -e "   --folder=/path/to/folder/       - Full path to screenshot folder, with trailing slash."
+    echo -e "                                   - [Default] ~/Pictures/Screenshots/"
+    echo -e "   --filename=filename             - File name to be saved, without extension."
+    echo -e "                                   - [Default] %Y-%m-%d_%H:%M:%S"
+    echo -e "   --extension=png|jpg|jpeg|...    - File extension to be used. Depend on screen capture tool."
+    echo -e "                                   - [Default] png"
+}
+
+if [ $# -gt 0 ]; then
+    for i in $@; do
+        case $i in
+            --mode=*)
+                MODE=$(echo $i | sed s:--mode=::)
+                ;;
+            --upload=*)
+                UPLOAD="$(echo $i | sed s:--upload=::)"
+                ;;
+            --folder=*)
+                FOLDER="$(echo $i | sed s:--folder=::)"
+                ;;
+            --filename=*)
+                FILENAME="$(echo $i | sed s:--filename=::)"
+                ;;
+            --extension=*)
+                EXTENSION="$(echo $i | sed s:--extension=::)"
+                ;;
+            -h | --help)
+                help
+                exit 0
+                ;;
+            *)
+                echo "Invalid argument. Please try again."
+                echo "Try --help to get list of arguments."
+                exit 1
+                ;;
+        esac
+    done
+fi
+
+#Build path
+FULL_PATH="$FOLDER$FILENAME.$EXTENSION"
+[ ! -d "$FOLDER" ] && mkdir "$FOLDER"
+
+# Take screenshot
+case "$MODE" in
+    full)
+        maim --format=$EXTENSION "$FULL_PATH"
+        ;;
+    window)
+        maim -i $(xdotool getactivewindow) --format=$EXTENSION "$FULL_PATH"
+        ;;
+    select)
+        maim --select --format=$EXTENSION "$FULL_PATH"
+        ;;
+    *)
+        echo "Invalid argument for mode"
+        exit 1
+        ;;
+esac
+
+if [ ! -e "$FULL_PATH" ]; then
+    notify-send "Failed to take screenshot"
+    exit 1
+else
+    notify-send "Screenshot captured"
+fi
+
+
+# Upload
+if [ "$UPLOAD" = "yes" ]; then
+    $UPLOADER "$FULL_PATH"
+fi
+
+exit 0

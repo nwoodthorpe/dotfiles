@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd $HOME/.config/bspwm/panel
+exec panel

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+PW="XHv1OqE6Yy1oZbF5"
+HOST="127.0.0.1"
+PORT="2856"
+CMD="mpc"
+
+if [ ! -z $PW ]
+then CMD="mpc --host $PW@$HOST --port $PORT"
+fi
+
+case $1 in
+    "toggle")
+        if [ $(echo $($CMD) | grep -i "playing" | wc -l) -gt 0 ]; then
+            $CMD pause
+        else
+            $CMD play
+        fi 
+        ;;
+    *)
+        $CMD $@
+        ;; 
+esac
+

@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=ue4editor
+#Path=/home/bookletchoir/Repositories/UnrealEngine/Engine/Binaries/Linux
+Name=Unreal Engine Editor
+Icon=ue4editor
+Terminal=true
+Categories=Development;Application;
+Comment=A complete suite of game development tools made by game developers, for game developers.

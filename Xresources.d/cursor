@@ -1,0 +1,5 @@
+! vim: set ft=xdefaults:
+! Cursor setting
+
+Xcursor.theme:  Vanilla-DMZ-AA
+Xcursor.size:   22

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="replace-messy-chars" mtime="1455532762" type="int" value="0"/>
+	<entry name="limit-jobs" mtime="1455532752" type="int" value="0"/>
+	<entry name="same-folder-as-input" mtime="1455532747" type="int" value="1"/>
+	<entry name="delete-original" mtime="1455532746" type="int" value="0"/>
+	<entry name="mp3-vbr-quality" mtime="1455532740" type="int" value="0"/>
+	<entry name="output-mime-type" mtime="1455537136" type="string">
+		<stringvalue>audio/mpeg</stringvalue>
+	</entry>
+</gconf>

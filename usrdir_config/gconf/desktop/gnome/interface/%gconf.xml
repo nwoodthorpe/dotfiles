@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="icon_theme" mtime="1452339354" type="string">
+		<stringvalue>Numix-Square</stringvalue>
+	</entry>
+	<entry name="gtk_color_scheme" mtime="1452339352" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="menus_have_icons" mtime="1452339358" type="bool" value="false"/>
+</gconf>

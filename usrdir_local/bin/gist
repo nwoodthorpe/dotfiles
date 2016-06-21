@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+link=$(gist $@)
+
+if [ -n $(echo "$link" | grep "http") ]; then
+    notify-send "Gist Uploader" "Files uploaded and copied to clipboard.\n$link"
+    printf "$link" | xclip -selection c
+    xdg-open $link
+else
+    notify-send "Gist Uploader" "Upload failed.\n$link"
+fi
+

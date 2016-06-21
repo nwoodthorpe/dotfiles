@@ -1,0 +1,17 @@
+--style=linux
+--indent=spaces=4
+--attach-namespaces
+--attach-inlines
+--indent-labels
+--indent-preproc-block
+--indent-preproc-define
+--break-blocks
+--pad-oper
+--pad-header
+--delete-empty-lines
+--align-pointer=name
+--align-reference=name
+--remove-brackets
+--convert-tabs
+--close-templates
+--max-code-length=80

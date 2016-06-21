@@ -1,0 +1,10 @@
+[Nemo Action]
+Active=true
+Name=Upload to Imgur
+Comment=Upload current image to Imgur
+Exec=<imgur %F>
+Icon-Name=screencloud-uploading
+Selection=s
+Extensions=jpg;png;gif;jpeg;apng;tiff;bmp;pdf;xcf;jpe;
+Quote=double
+EscapeSpaces=false

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="bluetooth_addr" mtime="1438188860" type="string">
+		<stringvalue>54:A0:50:04:4A:EB</stringvalue>
+	</entry>
+	<entry name="connection_type" mtime="1438188824" type="int" value="0"/>
+	<entry name="popup_messages" mtime="1438188762" type="bool" value="true"/>
+</gconf>

@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Icon=androidstudio
+Exec=android-studio %f
+Comment= The Official IDE for Android
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-androidstudio
+Name[en_US]=Android Studio

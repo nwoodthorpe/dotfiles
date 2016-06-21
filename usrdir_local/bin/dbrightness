@@ -1,0 +1,109 @@
+#!/bin/sh
+
+# Configurations
+SECS=1 # Show delay
+
+XPOS=200 # horizontal position
+YPOS=150 # vertical position
+HEIGHT=30 # window height
+WIDTH=250 # window width
+BAR_WIDTH=165 # width of progress bar
+ICON= # xbm icon to display
+
+background='#1f1f1f'
+foreground='#6d715e'
+FONT=
+
+bar_bg='#303030'
+bar_fg='#26ACFF'
+notify='#d17b49'
+warning='#d17b49'
+
+step=5
+val=30
+
+PIPE="/tmp/d_brightness_pipe.$USER"
+
+brightness_up() {
+    xbacklight -inc $step
+    echo "Brightness is increased to $(printf "%.0f" $(xbacklight -get))%"
+}
+
+brightness_down() {
+    xbacklight -dec $step
+    echo "Brightness is decreased to $(printf "%.0f" $(xbacklight -get))%"
+}
+
+brightness_set() {
+    xbacklight -set $val
+    echo "Brightness is set to $(printf "%.0f" $(xbacklight -get))%"
+}
+
+brightness_get() {
+    echo "Brightness level is $(printf "%.0f" $(xbacklight -get))"
+}
+
+help() {
+    echo "Usage: $0 [command] [agrument]"
+    echo "Command:"
+    echo -e "\t-h | --help:           Print this menu"
+    echo -e "\t-i | --increase value: Increase brightness level by given level"
+    echo -e "\t-d | --decrease value: Decrease brightness level by given level"
+    echo -e "\t-g | --get:            Get the current brightness level"
+    echo -e "\t-s | --set value:      Set the brighness level to the given level"
+    echo -e "\tup:                    Increase brightness level by 5"
+    echo -e "\tdown:                  Decrease brightness level by 5"
+}
+
+
+case $1 in
+    '-i' | '--increase')
+	    step=$2
+	    brightness_up
+	    ;;
+    '-d' | '--decrease')
+	    step=$2
+	    brightness_down
+	    ;;
+    '-g' | '--get')
+	    brightness_get
+	    ;;
+    '-s' | '--set')
+	    val=$2
+	    brightness_set
+	    ;;
+    'up')
+	    brightness_up
+	    ;;
+    'down')
+	    brightness_down
+        ;;
+    '-h' | '--help')
+	    help
+	    ;;
+    *)
+	    echo "Invalid command"
+	    help
+	    exit 1
+	    ;;
+esac 2>/dev/null
+
+# Draw GUI here
+if [ ! -e "$PIPE" ]; then
+    mkfifo "$PIPE"
+    (dzen2 \
+         -tw "$WIDTH"      -h  "$HEIGHT" \
+         -x  "$XPOS"       -y  "$YPOS" \
+         -bg "$background" -fg "$foreground" < "$PIPE"
+     rm -f "$PIPE") &
+fi
+
+#Feed the pipe
+(echo "$(xbacklight -get)" | gdbar -l "^i($I{ICON})     " \
+                                   -fg "$bar_fg" -bg "$bar_bg"\
+                                   -w "$BAR_WIDTH"
+ sleep "$SECS") > "$PIPE"
+
+sleep 0.1
+
+exit 0

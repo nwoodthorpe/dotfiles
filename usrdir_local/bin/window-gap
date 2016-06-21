@@ -1,0 +1,37 @@
+#!/bin/sh
+
+step=5
+min_val=0
+max_val=200
+current_val=$(bspc config -d focused window_gap)
+
+increase_size() {
+    if [ `expr $current_val - $step` -lt $min_val ]; then
+        val=$min_val
+    else
+        val=`expr $current_val - $step`
+    fi
+}
+
+decrease_size() {
+    if [ `expr $current_val + $step` -gt $max_val ]; then
+        val=$max_val
+    else
+        val=`expr $current_val + $step`
+    fi
+}
+
+case $1 in
+    inc)
+        increase_size
+        bspc config -d focused window_gap $val
+        ;;
+    dec)
+        decrease_size
+        bspc config -d focused window_gap $val
+        ;;
+esac
+
+sleep 0.1
+
+exit 0

@@ -1,0 +1,123 @@
+#!/usr/bin/zsh
+# Written by bookletchoir@github
+# Feel free to edit it as you like
+
+#client_id='3e7a4deb7ac67da'
+#client_id="9e603f08c0e541c"
+client_id="76494bd96adaa5e"
+img=$1
+upload_api="https://api.imgur.com/3/upload"
+resource="$HOME/.cache/printscn_upload"
+retry=3
+delay=3
+
+md5=$(md5sum "$img" | awk '{print $1}')
+
+lockfile="/tmp/${md5}.${USER}"
+
+cleanup() {
+    [ -f "$lockfile" ] && rm "$lockfile"
+}
+
+trap cleanup EXIT
+
+# Send status to desktop
+notify() {
+    if [ -n "$link" ]; then
+        notify-send "$header" "$link"
+    elif [ -n "$error_code" ]; then
+        notify-send "$header" "$error_code"
+    else
+        notify-send "$header"
+    fi
+}
+
+# Check if file was already uploaded and get it
+get_image_cache() {
+    link=$(cat $resource | grep $md5 | tail -1 | awk '{print $2}')
+    [ -n "$link" ] && header="Image link cache found" && return 0
+    return 1
+}
+
+upload() {
+    res=$(curl -sH "Authorization: Client-ID $client_id" \
+        -F "image=@\"$img\"" $upload_api)
+}
+
+# Copy link to clipboards
+copy_to_clipboard() {
+    printf "$link" | xclip -selection c
+    printf "$link" | xclip -selection p
+}
+
+# Extract link from returned string from server
+get_link() {
+    if [ -n "$(echo "$res" | grep -oP '"status":200')" ]; then
+        header="Upload completed"
+        link=$(echo $res | sed -e 's/.*"link":"\([^"]*\).*/\1/' -e 's/\\//g')
+        echo -e "$md5\t$link" >> $resource
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Determine failure reason based on returned error code
+get_error_code() {
+    header="Upload failed"
+
+    [ ! -n "$res" ] && error_code="Request timed out." && return
+
+    [ -n "$(echo "$res" | grep -oP '"status":400')" ] \
+        && error_code="Parameter is incorrect or out-of-bound." && return
+
+    [ -n "$(echo "$res" | grep -oP '"status":401')" ] \
+        && error_code="Authentication required. Please update your Client ID." && return
+
+    [ -n "$(echo "$res" | grep -oP '"status":403')" ] \
+        && error_code="Forbidden. You don't have access to this action." && return
+
+    [ -n "$(echo "$res" | grep -oP '"status":404')" ] \
+        && error_code="Resource does not exist." && return
+
+    [ -n "$(echo "$res" | grep -oP '"status":429')" ] \
+        && error_code="Rate limiting.\nEither the rate limitting on the application or on your IP address has been hit." && return
+
+    [ -n "$(echo "$res" | grep -oP '"status":500')" ] \
+        && error_code="Unexpected internal error." && return
+
+    error_code="Unknown error"
+}
+
+# main
+
+# Check if resource file exits
+[ ! -f "$resource" ] && touch "$resource"
+
+# Check if file was already uploaded. If yes, get the link and exit.
+get_image_cache && copy_to_clipboard && notify && exit 0
+
+# Create lock file to prevent another process from uploading the same file
+{[ ! -f "$lockfile" ] && touch "$lockfile"} || {notify-send "File is being uploaded" && exit 1}
+
+# Start uploading for number of $retry times
+notify-send "Uploading file..."
+
+for i in {0..$retry}; do
+    # Notify if upload failed
+    [ $i -gt 0 ] && notify-send "Retrying for $i time(s)"
+
+    # Start uploading
+    upload
+
+    # Check if file uploaded successfully, copy to clipboard and exit.
+    # If not notify the error and continue the upload loop.
+    {get_link && copy_to_clipboard && notify && break} || {get_error_code && notify}
+    sleep $delay
+done
+
+# Post-cleanup
+cleanup
+
+# Exit code
+{[ $i -eq $retry] && exit 1} || exit 0

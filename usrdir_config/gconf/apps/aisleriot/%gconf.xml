@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="game_file" mtime="1452339309" type="string">
+		<stringvalue>klondike.scm</stringvalue>
+	</entry>
+	<entry name="recent_games_list" mtime="1416151876" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>klondike</stringvalue>
+		</li>
+	</entry>
+	<entry name="show_statusbar" mtime="1416151876" type="bool" value="true"/>
+</gconf>

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+[[ -z "${1// }" ]] && NAME="Charlie" || NAME="${1// }"
+
+tmux -q has-session -t "$NAME" && exec tmux attach-session -d -t "$NAME" || exec tmux new-session -s"$NAME"

@@ -1,0 +1,322 @@
+#!/bin/bash
+
+# Incomplete
+
+# Load config
+source config
+
+# Support functions # {{{
+
+## Global variables
+#{{{
+previous_status_left=""
+previous_status_right=""
+# }}}}
+
+## Update previous status
+## Usage: update_status status {left, right}
+update_status() { # {{{
+    case "$2" in
+        left)
+            previous_status_left="$1"
+            ;;
+        right)
+            previous_status_right="$1"
+            ;;
+    esac
+}
+# }}}
+
+## Check if last status is active
+is_active() { # {{{
+    return $(test -n "$(echo "$1" | grep -i "focused")")
+}
+# }}}
+
+## Get foreground color value based on status
+## Usage: get_color_fg status
+get_color_fg() { # {{{
+    case "$1" in
+        focused_occupied)
+            echo "${color_focused_occupied_fg}"
+            ;;
+        focused_free)
+            echo "${color_focused_free_fg}"
+            ;;
+        focused_urgent)
+            echo "${color_focused_urgent_fg}"
+            ;;
+        occupied)
+            echo "${color_occupied_fg}"
+            ;;
+        free)
+            echo "${color_free_fg}"
+            ;;
+        urgent)
+            echo "${color_urgent_fg}"
+            ;;
+        layout)
+            echo "${color_layout_fg}"
+            ;;
+        title)
+            echo "${color_title_fg}"
+            ;;
+        status)
+            echo "${color_status_fg}"
+            ;;
+        sysinfo)
+            echo  "${color_widget_sysinfo_fg}"
+            ;;
+        *)
+            echo  "${color_global_bg}"
+    esac
+}
+# }}}
+
+## Get background color value based on status
+## Usage: get_color_bg status
+get_color_bg() { # {{{
+    case "$1" in
+        focused_occupied)
+            echo  "${color_focused_occupied_bg}"
+            ;;
+        focused_free)
+            echo  "${color_focused_free_bg}"
+            ;;
+        focused_urgent)
+            echo "${color_focused_urgent_bg}"
+            ;;
+        occupied)
+            echo "${color_occupied_bg}"
+            ;;
+        free)
+            echo "${color_free_bg}"
+            ;;
+        urgent)
+            echo "${color_urgent_bg}"
+            ;;
+        layout)
+            echo "${color_layout_bg}"
+            ;;
+        title)
+            echo "${color_title_bg}"
+            ;;
+        status)
+            echo "${color_status_bg}"
+            ;;
+        sysinfo)
+            echo "${color_sysinfo_bg}"
+            ;;
+        *)
+            echo "${color_global_bg}"
+            ;;
+    esac
+}
+# }}}
+
+## Color the content
+## Usage: colorize content color_fg color_bg
+colorize() { # {{{
+    local color_fg color_bg content
+    content="$1"
+    color_fg="$2"
+    color_bg="$3"
+
+    case "${panel_type}" in
+        bar | lemonbar)
+            echo "%{F${color_fg}}%{B${color_bg}}${content}%{F-}%{B-}"
+            ;;
+        dzen | dzen2)
+            echo "^fg(${color_fg})^bg(${color_bg})${content}^bg()^fg()"
+            ;;
+    esac
+}
+# }}}
+
+# }}}
+
+# Powerline entry creator {{{
+
+create_entry_left_headless() { # {{{
+    status=$1
+    content=$2
+}
+# }}}
+
+## Create an entry on the left (thick)
+## Usage: create_entry_left status content
+create_entry_left() { # {{{
+    status="$1"
+    content="$2"
+    color_fg=$(get_color_fg "${status}")
+    color_bg=$(get_color_bg "${status}")
+
+    if [ -n "${content}" ]; then
+        content="${sym_left_sep_alt}${sym_left_sep_alt} ${content}"
+        content="$(colorize "  ${content}  " "${color_fg}" ${color_bg})"
+    fi
+
+    if [ -n "${previous_status_left}}" ]; then
+        symbol_left="${sym_left_sep}"
+        color_symbol_left_fg="${color_global_bg}"
+        color_symbol_left_bg="${color_bg}"
+
+        symbol_left="$(colorize ${symbol_left} ${color_symbol_left_fg} ${color_symbol_left_bg})"
+   fi
+
+    symbol_right="${sym_left_sep}"
+    color_symbol_right_fg="${color_bg}"
+    color_symbol_right_bg="${color_global_bg}"
+
+    symbol_right="$(colorize "${symbol_right}" "${color_symbol_right_fg}" "${color_symbol_right_bg}")"
+
+    update_status "${status}" "left"
+
+    echo "${symbol_left}${content}${symbol_right}"
+}
+# }}}
+
+## Create an entry on the left (thin)
+## Usage: create_entry_left_thin status content
+create_entry_left_thin() { # {{{
+    echo "${previous_status_left}" > /home/bios/log
+
+    status="$1"
+    content="$2"
+
+    color_fg="$(get_color_fg "${status}")"
+    color_bg="$(get_color_bg "${status}")"
+
+    if [ -n "${content}" ]; then
+        content="$(colorize "  ${sym_left_sep_alt} ${content}  " "${color_fg}" "${color_bg}")"
+    fi
+
+    if [ -n "${previous_status_left}" ]; then
+        color_symbol_bg="${color_bg}"
+        color_symbol_fg="$(get_color_bg "${previous_status_left}")"
+
+        symbol=$(colorize "${sym_left_sep}" "${color_symbol_fg}" "${color_symbol_bg}")
+    fi
+
+    echo "${symbol}${content}" 
+} # }}}
+
+## Create an entry on the right (thick)
+## Usage: create_entry_right status content
+create_entry_right() { # {{{
+    status="$1"
+    content="$2"
+
+    color_fg=$(get_color_fg "${status}")
+    color_bg=$(get_color_bg "${status}")
+    content="$(colorize "  ${content}  " "${color_fg}" "${color_bg}}")"
+
+    symbol_left="${sym_right_sep}"
+    color_symbol_left_fg="$(get_color_bg "${status}")"
+    color_symbol_left_bg="${color_global_bg}"
+    symbol_left="$(colorize "${symbol_left}" "${color_symbol_left_fg}" "${color_symbol_left_bg}")"
+
+    if [ -n "${previous_status_right}" ]; then
+        symbol_right="${sym_right_sep}"
+        color_symbol_right_fg="$(color_global_bg)"
+        color_symbol_right_bg="${color_bg}"
+        symbol_right="$(colorize "${symbol_right}" "${color_symbol_right_fg}" "${color_symbol_right_bg}")"
+    fi
+
+    update_status "${status}" "right"
+
+    echo "${symbol_left}${content}${symbol_right}"
+}
+# }}}
+
+## Create an entry on the right (thin)
+## Usage: create_entry_right_thin status content
+create_entry_right_thin() { #{{{
+    status="$1"
+    content="$2"
+
+    color_fg="$(get_color_fg "${status}")"
+    color_bg="$(get_color_bg "${status}")"
+    content="$(colorize "  ${content}  " "${color_fg}" "${color_bg}")"
+
+    if [ -n "${previous_status_right}}" ]; then
+        symbol="${sym_right_sep}"
+        color_symbol_fg="$(get_color_bg "${previous_status_right}")"
+        color_symbol_bg="${color_bg}"
+        symbol="$(colorize "${symbol}" "${color_symbol_fg}" "${color_symbol_bg}")"
+    fi
+
+    update_status "${status}"
+
+    echo "${status}${symbol}"
+} # }}}
+
+## }}}
+
+# Filter input arguments {{{
+while read -r line ; do
+    previous_status_right=""
+    previous_status_left=""
+
+    # Filter line
+    case ${line} in # {{{
+        A*) # System info
+            sys_info="$(create_entry_left_thin "sysinfo" "${line#?}")"
+            ;;
+        S*) # Clock
+            clock="$(create_entry_right "clock" "${line#?}")"
+            ;;
+        W*) # Bspwm internal state
+            wm_infos=""
+            IFS=':'
+            set -- ${line#?}
+            while [ $# -gt 0 ] ; do
+                item=$1
+                name=${item#?}
+                case $item in
+                    O*) # focused_occupied
+                        wm_infos="${wm_infos}$(create_entry_left_thin "focused_occupied" ${name})"
+                        previous_status_left="focused_occupied"
+                        ;;
+                    F*) # focused free desktop
+                        wm_infos="${wm_infos}$(create_entry_left_thin "focused_free" ${name})"
+                        previous_status_left="focused_free"
+                        ;;
+                    U*) # focused urgent desktop
+                        wm_infos="${wm_infos}$(create_entry_left_thin "focused_urgent" ${name})"
+                        previous_status_left="focused_urgent"
+                        ;;
+                    o*) # occupied desktop
+                        wm_infos="${wm_infos}$(create_entry_left_thin "occupied" ${name})"
+                        previous_status_left="occupied"
+                        ;;
+                    f*) # free desktop
+                        wm_infos="${wm_infos}$(create_entry_left_thin "free" ${name})"
+                        previous_status_left="free"
+                        ;;
+                    u*) # urgent desktop
+                        wm_infos="${wm_infos}$(create_entry_left_thin "urgent" ${name})"
+                        previous_status_left="urgent"
+                        ;;
+                esac
+
+                shift
+            done
+            ;;
+    esac 
+
+    wm_infos="${wm_infos}$(create_entry_left_thin)"
+    # }}}
+
+    # Print the result string
+    case "${panel_type}" in # {{{
+        bar | lemonbar)
+            echo "%{l}${sys_info}${wm_infos}%{r}right"
+            ;;
+        dzen | dzen2)
+            echo "^p(_LEFT)${sysinfo}${wm_infos}^p(_CENTER)${clock}"
+            ;;
+    esac # }}}
+done
+# }}}
+

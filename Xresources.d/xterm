@@ -1,0 +1,55 @@
+! vim: set ft=xdefaults:
+! Xterm resources
+
+! Default window size
+xterm*VT100.geometry: 80x25
+
+! Default font
+xterm*faceName: xft:Ubuntu Mono derivative Powerline:pixelsize=14:style=Book:antialias=true:hinting=true
+! CJK font
+xterm*faceNameDoublesize: xft:WenQuanYi Micro Hei Mono:pixelsize=14:antialias=true:hinting=true
+
+! Common settings
+XTerm*locale:           true
+xterm*termName:         xterm-256color
+XTerm*local:            true
+XTerm*metaSendsEscape:  true
+xterm*dynamicColors:    true
+xterm*utf8:             1
+xterm*eightBitInput:    true
+xterm*saveLines:        512
+xterm*scrollKey:        true
+xterm*scrollTtyOutput:  false
+xterm*scrollBar:        false
+xterm*rightScrollBar:   false
+xterm*jumpScroll:       true
+xterm*multiScroll:      true
+xterm*toolBar:          false
+xterm*borderWidth:      0
+
+XTerm*pointerColor:             white
+XTerm*pointerColorBackground:   black
+XTerm*cursorBlink:              true
+
+! Color table
+xterm*background:   #222222
+xterm*foreground:   #E6E6E6
+XTerm*cursorColor:  #1AAAA13
+
+xterm*color0:       #222946
+xterm*color8:       #8C8B89
+xterm*color1:       #BE1919
+xterm*color9:       #DC2F32
+xterm*color2:       #1AAA13
+xterm*color10:      #5DCE33
+xterm*color3:       #FFAA3E
+xterm*color11:      #FADD2D
+xterm*color4:       #3A57D7
+xterm*color12:      #507CFF
+xterm*color5:       #BE007F
+xterm*color13:      #E671D3
+xterm*color6:       #258F8F
+xterm*color14:      #4DC5DC
+xterm*color7:       #AEAEAE
+xterm*color15:      #DBDDE4
+

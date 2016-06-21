@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd $HOME/Web/docs/devdocs
+rackup -o 127.0.0.1 -p 9292 -D
+exit 0

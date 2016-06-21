@@ -1,0 +1,5 @@
+#!/bin/bash
+
+wmname LG3D
+
+exec "$HOME/Softwares/visualparadigm/Visual_Paradigm"

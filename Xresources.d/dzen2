@@ -1,0 +1,5 @@
+! vim: set ft=xdefaults:
+! dzen2 resources
+dzen2.font:         Consolas:size=10
+dzen2.foreground:   #A8A8A8
+dzen2.background:   black

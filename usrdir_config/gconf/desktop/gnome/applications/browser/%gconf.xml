@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="exec" mtime="1420893895" type="string">
+		<stringvalue>firefox</stringvalue>
+	</entry>
+</gconf>

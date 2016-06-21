@@ -1,0 +1,8 @@
+#!/bin/bash
+
+TMP="$HOME/.cache/gcal.$USER"
+
+[ ! -f "$TMP" ] && touch "$TMP"
+
+cal_agenda=$(gcalcli agenda --nocolor)
+[ -n "$cal_agenda" ] && echo "$cal_agenda" > "$TMP"

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="force-grab" mtime="1438532325" type="bool" value="false"/>
+	<entry name="disable-grab" mtime="1438532325" type="bool" value="false"/>
+	<entry name="prompt" mtime="1438532325" type="bool" value="false"/>
+	<entry name="sudo-mode" mtime="1438101099" type="bool" value="true"/>
+	<entry name="save-to-keyring" mtime="1415808656" type="bool" value="false"/>
+</gconf>

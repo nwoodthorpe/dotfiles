@@ -1,0 +1,108 @@
+#!/bin/bash
+
+#COLOR_FOREGROUND='#A3A6AB'
+#COLOR_BACKGROUND='#303030'
+#COLOR_ACTIVE_MONITOR_FG='#34322E'
+#COLOR_ACTIVE_MONITOR_BG='#58C5F1'
+#COLOR_INACTIVE_MONITOR_FG='#58C5F1'
+#COLOR_INACTIVE_MONITOR_BG='#34322E'
+COLOR_FOCUSED_OCCUPIED_FG=white
+COLOR_FOCUSED_OCCUPIED_BG='#1D90CD'
+COLOR_FOCUSED_FREE_FG='#000000'
+COLOR_FOCUSED_FREE_BG='#FFFF7F'
+COLOR_FOCUSED_URGENT_FG=white
+COLOR_FOCUSED_URGENT_BG='#FF007F'
+COLOR_OCCUPIED_FG=white
+#COLOR_OCCUPIED_BG='#1D90CD'
+COLOR_FREE_FG='#6F7277'
+#COLOR_FREE_BG='#34322E'
+COLOR_URGENT_FG='#FF007F'
+#COLOR_URGENT_BG='#34322E'
+COLOR_LAYOUT_FG='#A3A6AB'
+#COLOR_LAYOUT_BG='#34322E'
+#COLOR_TITLE_FG='#A3A6AB'
+#COLOR_TITLE_BG='#34322E'
+COLOR_STATUS_FG='#A3A6AB'
+#COLOR_STATUS_BG='#34322E'
+
+COLOR_LEFT_FG=
+COLOR_LEFT_BG=
+
+COLOR_RIGHT_FG=
+COLOR_RIGHT_BG=
+
+num_mon=$(bspc query -M | wc -l)
+
+while read -r line ; do
+    case $line in
+        #T*)
+            # xtitle output
+            #title="%{F$COLOR_TITLE_FG}%{B$COLOR_TITLE_BG} ${line#?} %{B-}%{F-}"
+            #;;
+        L*)
+            left_panel="^fg($COLOR_LEFT_FG)^bg($COLOR_LEFT_BG) ${line#?} ^fg()^bg()"
+            ;;
+        R*)
+            right_panel="^fg($COLOR_RIGHT_FG)^bg($COLOR_RIGHT_BG) ${line#?} ^fg()^bg()"
+            ;;
+        W*)
+            # bspwm internal state
+            wm_infos=""
+            IFS=':'
+            set -- ${line#?}
+            while [ $# -gt 0 ] ; do
+                item=$1
+                name=${item#?}
+                case $item in
+                    M*)
+                        # active monitor
+                        if [ $num_mon -gt 1 ] ; then
+                            wm_infos="$wm_infos ^fg($COLOR_ACTIVE_MONITOR_FG)^($COLOR_ACTIVE_MONITOR_BG) ${name} ^fg()^bg()  "
+                        fi
+                        ;;
+                    m*)
+                        # inactive monitor
+                        if [ $num_mon -gt 1 ] ; then
+                            wm_infos="$wm_infos ^fg($COLOR_INACTIVE_MONITOR_FG)^bg($COLOR_INACTIVE_MONITOR_BG) ${name} ^fg()^bg()  "
+                        fi
+                        ;;
+                    O*)
+                        # focused occupied desktop
+                        wm_infos="$wm_infos^fg($COLOR_FOCUSED_OCCUPIED_FG)^bg($COLOR_FOCUSED_OCCUPIED_BG) ${name} ^fg()^bg()"
+                        ;;
+                    F*)
+                        # focused free desktop
+                        wm_infos="${wm_infos}^fg($COLOR_FOCUSED_FREE_FG)^bg($COLOR_FOCUSED_FREE_BG) ${name} ^fg()^bg()"
+                        ;;
+                    U*)
+                        # focused urgent desktop
+                        wm_infos="${wm_infos}^fg($COLOR_FOCUSED_URGENT_FG)^bg($COLOR_FOCUSED_URGENT_BG) ${name} ^fg()^bg()"
+                        ;;
+                    o*)
+                        # occupied desktop
+                        wm_infos="${wm_infos}^fg($COLOR_OCCUPIED_FG)^bg($COLOR_OCCUPIED_BG) ${name} ^fg()^bg()"
+                        ;;
+                    f*)
+                        # free desktop
+                        wm_infos="${wm_infos}^fg($COLOR_FREE_FG)^bg($COLOR_FREE_BG) ${name} ^fg()^bg()"
+                        ;;
+                    u*)
+                        # urgent desktop
+                        wm_infos="${wm_infos}^fg($COLOR_URGENT_FG)^bg($COLOR_URGENT_BG) ${name} ^fg()^bg()"
+                        ;;
+                    NN*)
+                        num_indicator="${name}"
+                        ;;
+                    L*)
+                        # layout
+                        #wm_infos="$wm_infos  %{F$COLOR_LAYOUT_FG}%{B$COLOR_LAYOUT_BG} ${name} %{B-}%{F-}"
+                        ;;
+                esac
+                shift
+            done
+            ;;
+    esac
+    SEPERATOR="^fg(white)|^fg()"
+    echo "^p(_LEFT)$left_panel^p(_CENTER)^p(-210)$wm_infos^p(_RIGHT)^p(-135)$SEPERATOR $right_panel"
+done
+

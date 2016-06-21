@@ -1,0 +1,7 @@
+#!/bin/bash
+
+wmname LG3D
+
+export GTK_THEME=Numix-Frost:light
+
+exec "$HOME/Softwares/idea-IU/bin/idea.sh"

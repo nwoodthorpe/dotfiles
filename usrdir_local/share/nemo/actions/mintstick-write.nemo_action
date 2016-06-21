@@ -1,0 +1,8 @@
+[Nemo Action]
+Active=true
+Exec=mintstick -m iso -i "%F"
+Icon-Name=usb-creator
+Selection=S
+Extensions=iso;img;
+Name=Make bootable USB stick
+Comment=Make a bootable USB stick

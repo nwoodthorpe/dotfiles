@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# A simple popup showing system information
+# p/s: fk regex
+
+TMP_PKG_LIST="$HOME/.cache/pkg_list.$USER"
+TMP_PKG_ORPHANED="$HOME/.cache/pkg_orphaned.$USER"
+TMP_PKG_UPDATE="$HOME/.cache/pkg_updates.$USER"
+
+HOST=$(uname -n)
+KERNEL=$(uname -r)
+UPTIME=$(uptime | sed 's/.* up //' | sed 's/[0-9]* us.*//' | sed 's/ day, /d /'\
+    | sed 's/ days, /d /' | sed 's/:/h /' | sed 's/ min//'\
+    | sed 's/,/m/' | sed 's/  / /')
+PACKAGES=""
+UPDATE_TIME=$(awk '/upgraded/ {line=$0;} END { $0=line; gsub(/[\[\]]/,"",$0); \
+    printf "%s %s",$1,$2;}' /var/log/pacman.log)
+#SNAPSHOT_ID=$(snapper list | grep "timeline" |  tail -1 | grep -oP '\d+' | head -1)
+#SNAPSHOT_DATE=""
+#WM_NAME=$(wmname)
+
+HEIGHT=$(expr 7 + $(df -HT| wc -l))
+WIDTH=500
+XPOS=$(expr 0 + 10)
+YPOS=$(expr 21 + 10)
+
+
+update_packages_info() {
+    [ ! -f "$TMP_PKG_LIST" ] && touch "$TMP_PKG_LIST"
+    [ ! -f "$TMP_PKG_ORPHANED" ] && touch "$TMP_PKG_ORPHANED"
+    [ ! -f "$TMP_PKG_UPDATE" ] && touch "$TMP_PKG_UPDATE"
+
+    local total orphaned updates pkginfo
+
+    total=$(cat "$TMP_PKG_LIST" | wc -l)
+    orphaned=$(cat "$TMP_PKG_ORPHANED" | wc -l)
+    updates=$(cat "$TMP_PKG_UPDATE" | wc -l)
+
+    pacman -Q > "$TMP_PKG_LIST" &
+    pacman -Qtdq > "$TMP_PKG_ORPHANED" &
+    checkupdates > "$TMP_PKG_UPDATE" &
+
+    pkginfo="$total installed"
+    [ "$orphaned" -ne 0 ] && pkginfo="$pkginfo ($orphaned orphaned)"
+    [ "$updates" -ne 0 ] && pkginfo="$pkginfo, $updates updates available"
+
+    echo $pkginfo
+}
+
+get_snapshot_time() {
+    local snapshot_info snapshot_full_time snapshot_time
+    snapshot_info=$(snapper list | tail -1)
+    snapshot_full_time=$(echo $snapshot_info \
+        | grep -oP '\d+ [A-Z][a-z]+ \d+ \d.:\d.:\d. [A|P][M]')
+    snapshot_time=$(date -d "$snapshot_full_time" +"%Y-%m-%d %H:%M")
+
+    echo $snapshot_time
+}
+
+body() {
+    IFS= read -r header
+    printf '%s\n' "$header"
+    "$@"
+}
+
+PACKAGES=$(update_packages_info)
+SNAPSHOT_DATE=$(get_snapshot_time)
+
+(
+echo "System Information"
+echo
+echo "Session: $USER@$HOST"
+#echo "Desktop: $WM_NAME ($DESKTOP_SESSION)"
+echo "Kernel: $KERNEL"
+echo "Uptime: $UPTIME "
+echo "Packages: $PACKAGES"
+echo "Last updated: $UPDATE_TIME"
+#echo "Last snapshot: $SNAPSHOT_DATE, number $SNAPSHOT_ID"
+echo
+df -HT | body sort -k 1.1,1.1
+) | dzen2 -p -x "$XPOS" -y "$YPOS" -w "$WIDTH" -l "$HEIGHT" -sa 'l' -ta 'c'\
+    -title-name 'popup_sysinfo' -e 'onstart=uncollapse;button1=exit;button3=exit'

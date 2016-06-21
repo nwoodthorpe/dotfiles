@@ -1,0 +1,38 @@
+#!/usr/bin/zsh
+
+tmp="/tmp/$USER"
+fps=30
+
+optimize=false
+
+mkdir "${tmp}"
+
+cleanup() {
+    [ -d "${tmp}" ] && rm -rf "${tmp}"
+}
+trap cleanup EXIT
+
+[ ! -r "$1" ] && echo "Cannot read input file!" && exit 1
+
+fullfile="$(basename "$1")"
+filename="${fullfile%.*}"
+
+[ -n "$2" ] && outfile="$2" || outfile="${filename}.gif"
+
+echo "Extracting file to layers..."
+ffmpeg -i "$1" "${tmp}/out%04d.gif" &> /dev/null
+
+echo "Converting layers to file..."
+convert -delay 1x${fps} -loop 0 "${tmp}/out*.gif" "${tmp}/${outfile}" &> /dev/null
+
+if $optimize; then
+    echo "Optimizing file..."
+    convert -layers Optimize "${tmp}/${outfile}" "${outfile}" &> /dev/null
+else 
+    mv "${tmp}/${outfile}" "${outfile}"
+fi
+
+echo "Cleaning up..."
+cleanup
+
+echo "Done!"

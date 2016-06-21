@@ -1,0 +1,77 @@
+! vim: set ft=xdefaults:
+! rxvt-unicode resources
+
+! Application Icon
+URxvt.iconFile: /usr/share/icons/Numix-Square/scalable/apps/terminal.svg
+
+! Transparency
+URxvt*depth:        32
+URxvt*background:   rgba:0000/0000/0000/CCCC
+
+! Color table
+#include "/home/bookletchoir/.colors/euphrasia"
+
+! Default size
+URxvt*geometry: 80x24
+
+! Common settings
+URxvt*fading:           10
+URxvt*fadeColor:        #000000
+URxvt*cursorBlink:      true
+URxvt*scrollBar:        false
+URxvt*saveLines:        30000
+URxvt*internalBorder:   6
+URxvt*dynamicColors:    on
+URxvt.urgentOnBell:     true
+!urxvt*cursorUnderline: 3
+
+! Character spacing tightness
+URxvt*letterSpace: -1
+
+! Perl extensions
+URxvt*perl-lib:         /usr/lib/urxvt/perl
+URxvt*perl-ext-common:  default,matcher,clipboard,url-select,resize-font
+
+! Perl extension -  matcher
+URxvt*perl-matcher:         1
+URxvt*matcher.button:       1
+URxvt*matcher.pattern.1:    \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+
+! Perl extension - url-select
+URxvt*url-launcher:         /usr/bin/firefox
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.url-select.launcher:  firefox
+URxvt.url-select.underline: true
+
+! Keycap symbol (ctrl + shift)
+URxvt.iso14755:     false
+URxvt.iso14755_52:  false
+
+! Perl extension - clipboard
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+! Perl extension - resize-font
+URxvt.resize-font.smaller:  C-Down
+URxvt.resize-font.bigger:   C-Up
+
+! Perl extension - keyboard-select
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:search
+
+! Input method support
+URxvt.inputMethod:  fcitx
+URxvt.preeditType:  OverTheSpot
+
+! Misc
+URxvt.colorIT:  #87af5f
+URxvt.colorBD:  #d7d7d7
+URxvt.colorUL:  #87afd7
+
+! Fonts
+URxvt.font:             xft:Ubuntu Mono derivative Powerline:pixelsize=14:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:antialias=true:hinting=true
+URxvt.boldFont:         xft:Ubuntu Mono derivative Powerline:pixelsize=14:bold:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:antialias=true:hinting=true
+URxvt.italicFont:       xft:Ubuntu Mono derivative Powerline:pixelsize=14:italic:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:italic:antialias=true:hinting=true
+URxvt.boldItalicFont:   xft:Ubuntu Mono derivative Powerline:pixelsize=14:bold:italic:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:italic:antialias=true:hinting=true
+

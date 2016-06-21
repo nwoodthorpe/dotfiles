@@ -1,0 +1,10 @@
+! vim: set ft=xdefaults:
+! Common xft settings
+Xft.antialias:  true
+Xft.autohint:   true
+Xft.dpi:        96
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+Xft.lcdfilter:  lcddefault
+Xft.rgba:       rgb
+

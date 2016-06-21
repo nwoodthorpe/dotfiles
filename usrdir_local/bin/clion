@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+wmname LG3D
+
+exec "$HOME/Softwares/clion/bin/clion.sh"

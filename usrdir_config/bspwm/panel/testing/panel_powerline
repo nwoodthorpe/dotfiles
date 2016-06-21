@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Incomplete
+
+if [ $(pgrep -cx panel_powerline) -gt 1 ] ; then
+	printf "%s\n" "The panel is already running." >&2
+	exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+export PANEL_FIFO="/tmp/panel-fifo"
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+bspc control --subscribe > "$PANEL_FIFO" &
+#xtitle -sf 'T%s' > "$PANEL_FIFO" &
+echo "AArch Linux $(uname -r)" > "$PANEL_FIFO" &
+clock -sf 'S%a %I:%M %p' > "$PANEL_FIFO" &
+
+source config
+
+case "${panel_type}" in
+    bar | lemonbar)
+        cat "$PANEL_FIFO" \
+            | "$(dirname $0)/panel_bar_powerline" \
+            | lemonbar  -n "${panel_wm_name}" \
+                        -f "${panel_font_family}" \
+                        -F "${color_global_fg}" \
+                        -B "${color_global_bg}" \
+                        &
+        ;;
+    dzen | dzen2)
+        cat "$PANEL_FIFO" \
+            | "$(dirname $0)/panel_bar_powerline" \
+            | dzen2 -fg "${color_global_fg}" \
+                    -bg "${color_global_bg}" \
+                    -fn "${panel_font_family}" \
+                    -e "button2=;" \
+                    -p &
+        ;;
+esac
+
+wait
