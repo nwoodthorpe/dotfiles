@@ -9,7 +9,7 @@ URxvt*depth:        32
 URxvt*background:   rgba:0000/0000/0000/CCCC
 
 ! Color table
-#include "/home/bookletchoir/.colors/euphrasia"
+#include "/home/bookletchoir/.Xresources.d/colors/euphrasia"
 
 ! Default size
 URxvt*geometry: 80x24
