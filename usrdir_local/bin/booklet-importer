@@ -44,7 +44,7 @@ def numbering(str_):
     except AttributeError:
         return ""
 
-    return str_ if int(str_) >= 10 else "0" + str_
+    return str_ if int(str_) >= 10 else "0" + int(str_)
 
 
 def randstr(lenth):
@@ -103,7 +103,7 @@ def move(src, dst, override=False, merge=False):
     :param merge: If src and dst are directories, both contents will be merged
     """
 
-    # Quick check and skip on same files
+    # Quick check skip on same files
     try:
         if os.path.samefile(src, dst):
             return
@@ -134,7 +134,7 @@ def move(src, dst, override=False, merge=False):
             logging.warning("Conflict removed")
         else:
             logging.error(
-                'Skipping operation: "{0}" => "{1}"'.format(src, dst)
+                'Skipping for file operation: "{0}" => "{1}"'.format(src, dst)
             )
             return
 
@@ -179,7 +179,7 @@ class Tag:
         self.tags_name['genre'] = 'genre'
         self.tags_name['title'] = 'title'
         self.tags_name['track'] = 'tracknumber'
-        self.tags_name['year'] = 'date'
+        self.tags_name['year'] = 'year'
 
         if mime == "audio/mpeg":
             try:
@@ -220,6 +220,8 @@ class Tag:
                 tags = flac.Open(file)
             except MutagenError:
                 raise
+
+            self.tags_name['year'] = 'date'
         elif mime == "audio/x-wav":
             try:
                 tags = wavpack.Open(file)
@@ -249,16 +251,16 @@ class Tag:
 
         # Flatten tags
 
-        if not self.year.strip():
+        if self.year.strip():
             self.year = "0000"
 
-        if not self.disc.strip():
+        if self.disc.strip():
             self.disc = self.disc.strip()
 
-        if not self.title.strip():  # Keep original filename
+        if self.title.strip():  # Keep original filename
             self.title = os.path.splitext(os.path.basename(file))[0]
 
-        if not self.track.strip():
+        if self.track.strip():
             self.track = "00"
 
     def parse(self, str_):
