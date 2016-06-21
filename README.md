@@ -15,6 +15,9 @@ Some useful files you may want:
 - `usrdir_local/bin/imgur` upload file to imgur, does remember which file is uploaded
 - `usrdir_local/share/nemo/actions` Some custom nemo context menu actions
 
+### Other dotfiles
+- [zsh](https://github.com/bookletchoir/zsh.d)
+
 ### TODO
 - [x] Be lazy
 
