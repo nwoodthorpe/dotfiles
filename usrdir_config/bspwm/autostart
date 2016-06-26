@@ -3,7 +3,7 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 export PANEL_FIFO=/tmp/panel-fifo
-export PATH="$HOME/.local/bin:$PATH:$HOME/.local/lib"
+export PATH="$HOME/.local/bin:$HOME/.rvm/bin:$HOME/.local/lib:$PATH"
 export LANG=en_US.UTF-8
 export LC_TIME=en_GB.UTF-8
 export TERM="rxvt-unicode-256color"
