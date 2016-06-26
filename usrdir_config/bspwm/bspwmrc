@@ -80,6 +80,8 @@ bspc rule -a Uget-gtk desktop=^8
 #
 # 9. Doc
 #
+bspc rule -a loffice desktop=^9
+bspc rule -a libreoffice desktop=^9
 bspc rule -a libreoffice-startcenter desktop=^9
 bspc rule -a libreoffice-writer desktop=^9
 bspc rule -a libreoffice-calc desktop=^9
@@ -110,7 +112,7 @@ notify-send "Bspwm" "External rules loaded"
 #
 
 sxhkd &
-$(dirname $0)/autostart &
+source $(dirname $0)/autostart &
 
 # Launch panel
 bash "$(dirname $0)/panel/panel"

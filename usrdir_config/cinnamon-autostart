@@ -13,3 +13,4 @@ mpDris2 &
 fcitx &
 syndaemon -d -k -i 2 &
 devdocs-server &
+touchpad-script off &
