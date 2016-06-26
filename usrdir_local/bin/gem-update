@@ -1,4 +1,0 @@
-#!/bin/bash
-
-gem_list=$(gem list | cut -d ' ' -f 1)
-gem update $gem_list
