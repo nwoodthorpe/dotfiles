@@ -1,6 +1,6 @@
 #!/bin/bash
 
-img="$HOME/.local/feh-wallpaper.png"
+img="$HOME/.local/wallpaper.png"
 
 [ "$#" -ne 1 ] && echo "Invalid number of arguments." && exit 1
 

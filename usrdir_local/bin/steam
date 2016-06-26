@@ -1,4 +1,11 @@
-#!/bin/zsh
+#!/bin/bash
+echo ""
+echo "-----------------------------"
 echo "Running custom Steam launcher"
+echo "-----------------------------"
+echo ""
+
 #export LD_PRELOAD='/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so'
+#export LD_PRELOAD=/usr/lib/nvidia/libGL.so
+
 exec /usr/bin/optirun /usr/bin/steam $@

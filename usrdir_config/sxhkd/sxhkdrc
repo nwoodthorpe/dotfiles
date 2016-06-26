@@ -163,6 +163,8 @@ ctrl + alt + Print
 
 # }}}
 
+# Extra {{{
+
 # System monitor
 ctrl + Escape
     gnome-system-monitor
@@ -247,3 +249,5 @@ XF86HomePage
     firefox
 
 #XF86Reply
+
+# }}}
