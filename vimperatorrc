@@ -1,6 +1,4 @@
-"3.11.3 (created: 2016/01/30 14:42:44)
-
-cnoremap <Esc> <Esc>:js<Space>updateBottomBar()<Return>
+" theme {{{
 highlight Bell border: none; background-color: #d0d0d0;
 highlight Boolean color: orchid;
 highlight CmdLine font-size: 13px; background: black; color: #d0d0d0; -moz-transition: all 0.25s;
@@ -41,13 +39,22 @@ highlight Tag color: #a0a0d0;
 highlight Title color: orchid; background: #1c1c1c; font-weight: bold;
 highlight URL text-decoration: none; color: #d0ffd0;
 highlight WarningMsg color: #ff0000; background: #1c1c1c; font-size: 12px;
+" }}}
+
+" update bottom bars {{{
+cnoremap <Esc> <Esc>:js<Space>updateBottomBar()<Return>
 noremap : :js<Space>updateBottomBar(false)<Return>:
 noremap o :js<Space>updateBottomBar(false)<Return>o
 noremap O :js<Space>updateBottomBar(false)<Return>O
 noremap t :js<Space>updateBottomBar(false)<Return>t
 noremap T :js<Space>updateBottomBar(false)<Return>t
 noremap / :js<Space>updateBottomBar(false)<Return>/
+" }}}
+
+" ui configs {{{
+set gui=nonavigation
 set hintchars=asdfgqwertcvb
+
 style! -name=indigo-feed-button chrome://* <<EOF
 #feed-button {
         list-style-image: url("chrome://browser/skin/feeds/feedIcon16.png") !important;
@@ -62,13 +69,25 @@ style! -name=indigo-sbmcommentsviewer chrome://* <<EOF
         border: none !important;
     }
 EOF
-source! /home/bookletchoir/.vimperatorrc.local
 
-" vim: set ft=vimperator:
-set gui=nonavigation
+" }}}
 
+" commands {{{
+"command! reloadPlugins :js liberator.pluginFiles = {}; liberator.loadPlugins();
+
+" }}}
+
+" keymaps {{{
 command reader execute "open about:reader?url=" + content.location.href
 nmap <C-r> :reader<CR>
 
-" style -name ublick * #nav-bar * { visibility: visible; }
+"noremap H :back
+"noremap L :forward
+noremap J :tabnext<CR>
+noremap K :tabprevious<CR>
+noremap j <C-d>
+noremap k <C-u>
 
+" }}}
+
+source! /home/bookletchoir/.vimperatorrc.local
