@@ -1,6 +1,28 @@
 #!/bin/bash
 
-wmname LG3D
+case "${XDG_CURRENT_DESKTOP}" in
+    ENLIGHTENMENT)
+        ;;
+    GNOME)
+        ;;
+    KDE)
+        ;;
+    LUMINA)
+        ;;
+    LXDE)
+        ;;
+    MATE)
+        ;;
+    XFCE)
+        ;;
+    'X-Cinnamon')
+        ;;
+    Unity)
+        ;;
+    *)
+        wmname LG3D
+        ;;
+esac
 
 export GTK_THEME=Numix-Frost:light
 

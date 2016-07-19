@@ -1,5 +1,27 @@
 #!/bin/bash
 
-wmname LG3D
+case "${XDG_CURRENT_DESKTOP}" in
+    ENLIGHTENMENT)
+        ;;
+    GNOME)
+        ;;
+    KDE)
+        ;;
+    LUMINA)
+        ;;
+    LXDE)
+        ;;
+    MATE)
+        ;;
+    XFCE)
+        ;;
+    'X-Cinnamon')
+        ;;
+    Unity)
+        ;;
+    *)
+        wmname LG3D
+        ;;
+esac
 
 exec "$HOME/Softwares/visualparadigm/Visual_Paradigm"
