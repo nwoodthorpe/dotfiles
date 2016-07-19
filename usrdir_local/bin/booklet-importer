@@ -44,7 +44,7 @@ def numbering(str_):
     except AttributeError:
         return ""
 
-    return str_ if int(str_) >= 10 else "0" + int(str_)
+    return str_ if int(str_) >= 10 else "0" + str_
 
 
 def randstr(lenth):
@@ -251,16 +251,16 @@ class Tag:
 
         # Flatten tags
 
-        if self.year.strip():
+        if not self.year.strip():
             self.year = "0000"
 
-        if self.disc.strip():
+        if not self.disc.strip():
             self.disc = self.disc.strip()
 
-        if self.title.strip():  # Keep original filename
+        if not self.title.strip():  # Keep original filename
             self.title = os.path.splitext(os.path.basename(file))[0]
 
-        if self.track.strip():
+        if not self.track.strip():
             self.track = "00"
 
     def parse(self, str_):
