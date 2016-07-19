@@ -53,12 +53,14 @@ bspc rule -a smplayer desktop=^4
 #
 # 5. Dev
 #
+bspc rule -a firefox-developer desktop=^5
 bspc rule -a qtcreator-bin desktop=^5
 bspc rule -a QtCreator desktop=^5
 bspc rule -a Unity desktop=^5
 bspc rule -a MonoDevelop desktop=^5
 bspc rule -a jetbrains-pycharm desktop=^5
-bspc rule -a \*:sun-awt-X11-XFramePeer desktop=^5
+bspc rule -a jetbrains-idea desktop=^5
+bspc rule -a jetbrains-clion desktop=^5
 
 #
 # 6. File
