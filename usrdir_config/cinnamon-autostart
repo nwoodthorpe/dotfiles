@@ -1,6 +1,5 @@
 #!/bin/bash
 
-conky -q -d
 #copyq &
 #insync start --no-custom-folder-icon &
 urxvtd --quiet --opendisplay --fork &
