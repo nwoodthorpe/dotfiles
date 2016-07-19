@@ -1,4 +1,5 @@
 #!/bin/bash
 
 cd $HOME/Repositories/devdocs
-rackup -o 127.0.0.1 -p 9292 -D
+
+bundle exec rackup -o 127.0.0.1 -p 9292 -D
