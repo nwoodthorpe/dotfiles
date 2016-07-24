@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="auto_refresh" mtime="1416257611" type="bool" value="true"/>
-	<entry name="reverse_entries" mtime="1416257611" type="bool" value="true"/>
-	<entry name="set_item_read_timeout" mtime="1416257611" type="int" value="3000"/>
-</gconf>

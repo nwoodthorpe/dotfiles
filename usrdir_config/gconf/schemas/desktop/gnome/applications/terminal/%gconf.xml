@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="exec-arg" mtime="1452969644" type="string">
-		<stringvalue>-e</stringvalue>
-	</entry>
-	<entry name="exec" mtime="1452969560" type="string">
-		<stringvalue>urxvtc</stringvalue>
-	</entry>
-</gconf>

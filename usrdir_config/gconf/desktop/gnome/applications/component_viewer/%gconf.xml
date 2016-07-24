@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="exec" mtime="1448011320" type="string">
-		<stringvalue>nemo %s</stringvalue>
-	</entry>
-</gconf>

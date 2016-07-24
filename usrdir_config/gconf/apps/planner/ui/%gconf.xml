@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="main_window_maximized" mtime="1455525606" type="bool" value="true"/>
-	<entry name="active_view" mtime="1455525560" type="string">
-		<stringvalue>task_view</stringvalue>
-	</entry>
-</gconf>
