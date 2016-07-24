@@ -1,5 +1,0 @@
-#!/bin/bash
-
-wmname LG3D
-
-exec "$HOME/Softwares/android-studio/bin/studio.sh" $@

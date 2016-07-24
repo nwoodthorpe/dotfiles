@@ -3,8 +3,8 @@
 Version=1.0
 Type=Application
 Name=IntelliJ IDEA Ultimate
-Icon=idea
-Exec=idea %F
+Icon=intellij-idea
+Exec=intellij-idea %F
 Comment=The most intelligent Java IDE
 Categories=Development;IDE;
 Terminal=false

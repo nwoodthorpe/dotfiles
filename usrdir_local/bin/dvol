@@ -100,17 +100,17 @@ fi
 amixer set Master unmute
 
 # Icon handler
-if [ $VOL -eq 0 ]; then
-    ICON="/home/bios/Scripts/icons/volume0.xbm"
-elif [ $VOL -le 25 ]; then
-    ICON="/home/bios/Scripts/icons/volume25.xbm"
-elif [ $VOL -le 50 ]; then
-    ICON="/home/bios/Scripts/icons/volume50.xbm"
-elif [ $VOL -le 75 ]; then
-    ICON="/home/bios/Scripts/icons/volume75.xbm"
-else
-    ICON="/home/bios/Scripts/icons/volume100.xbm"
-fi
+#if [ $VOL -eq 0 ]; then
+#    ICON="/home/bios/Scripts/icons/volume0.xbm"
+#elif [ $VOL -le 25 ]; then
+#    ICON="/home/bios/Scripts/icons/volume25.xbm"
+#elif [ $VOL -le 50 ]; then
+#    ICON="/home/bios/Scripts/icons/volume50.xbm"
+#elif [ $VOL -le 75 ]; then
+#    ICON="/home/bios/Scripts/icons/volume75.xbm"
+#else
+#    ICON="/home/bios/Scripts/icons/volume100.xbm"
+#fi
 
 #Using named pipe to determine whether previous call still exists
 #Also prevents multiple volume bar instances
