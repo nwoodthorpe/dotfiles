@@ -4,9 +4,9 @@ export DESKTOP_SESSION=gnome
 export TERM="rxvt-unicode-256color"
 
 # Qt 5.7 compatibility fix
-# Related package: qt5-styleplugins-git qt5ct
-export QT_STYLE_OVERRIDE=gtk2
-export QT_QPA_PLATFORMTHEME=qt5ct
+# Related package: qt5-styleplugin qt5ct
+#export QT_STYLE_OVERRIDE=gtk2
+#export QT_QPA_PLATFORMTHEME=qt5ct
 
 # Virtual environments
 export PYENV_ROOT="$HOME/.local/env/pyenv"
@@ -21,7 +21,7 @@ eval "$(nodenv init -)"
 
 # Java options
 export FT2_SUBPIXEL_HINTING=1
-export _JAVA_OPTIONS="-Djdk.gtk.version=3"
+#export _JAVA_OPTIONS="-Djdk.gtk.version=3"
 
 # CCache path
 export CCACHE_PATH="/usr/bin"
