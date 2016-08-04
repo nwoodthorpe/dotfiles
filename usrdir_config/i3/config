@@ -1,0 +1,298 @@
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# i3wm default configs# {{{
+
+# Mod keys # {{{
+set $mod Mod4
+set $alt Mod1
+set $shift Shift
+set $ctrl Control
+set $esc Escape
+set $ret Return
+floating_modifier $mod
+
+# }}}
+
+# Font
+#font pango:Ubuntu Mono derivative Powerline 10
+font pango:Consolas 10
+
+# Window border
+new_window pixel 2
+
+# Titlebar format
+for_window [class=".*"] title_format " 🍀 %title"
+
+# Colors {{{
+# class                 border  backgr. text    indicator child_border
+client.focused          #222222 #333333 #ffffff #2e9ef4   #285577
+client.focused_inactive #4c7899 #555555 #ffffff #484e50   #285577
+client.unfocused        #333333 #111111 #888888 #292d2e   #222222
+client.urgent           #E74E40 #E74E40 #ffffff #DD000A   #E74E40
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+# }}}
+
+# Workspace name {{{
+set $ws1 1: 
+set $ws2 2: 
+set $ws3 3: 
+set $ws4 4: 
+set $ws5 5: 
+set $ws6 6: 
+set $ws7 7: 
+set $ws8 8: 
+set $ws9 9: 
+set $ws10 10: 
+
+# }}}
+
+# Status bar {{{
+bar {
+    status_command i3blocks
+
+    position top
+    #font pango:Ubuntu Mono derivative Powerline 10
+    font pango:Ohsnap 9
+
+    colors {
+        background #000000
+        statusline #ffffff
+        separator #666666
+
+        focused_workspace  #4c7899 #285577 #ffffff
+        active_workspace   #333333 #5f676a #ffffff
+        inactive_workspace #222222 #222222 #888888
+        urgent_workspace   #E74E40 #E74E40 #ffffff
+        binding_mode       #2f343a #900000 #ffffff
+    }
+}
+# }}}
+
+# }}}
+
+# Keyboard binding {{{
+
+# kill focused window
+bindsym $mod+w kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+$shift+h move left
+bindsym $mod+$shift+j move down
+bindsym $mod+$shift+k move up
+bindsym $mod+$shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+backslash split h
+bindsym $mod+c split h
+
+# split in vertical orientation
+bindsym $mod+minus split v
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+space layout toggle split
+bindsym $mod+$alt+space layout tabbed
+
+# toggle tiling / floating
+bindsym $mod+s floating toggle
+
+# change focus between tiling / floating windows
+#bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+#bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
+bindsym $mod+Tab workspace back_and_forth
+
+# move focused container to workspace
+bindsym $mod+$shift+1 move container to workspace $ws1
+bindsym $mod+$shift+2 move container to workspace $ws2
+bindsym $mod+$shift+3 move container to workspace $ws3
+bindsym $mod+$shift+4 move container to workspace $ws4
+bindsym $mod+$shift+5 move container to workspace $ws5
+bindsym $mod+$shift+6 move container to workspace $ws6
+bindsym $mod+$shift+7 move container to workspace $ws7
+bindsym $mod+$shift+8 move container to workspace $ws8
+bindsym $mod+$shift+9 move container to workspace $ws9
+bindsym $mod+$shift+0 move container to workspace $ws10
+
+# reload the configuration file
+bindsym $mod+$esc reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+$shift+r restart
+
+hide_edge_borders none
+
+focus_follows_mouse no
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# }}}
+
+# Applications rule  {{{
+# assign param: instance class
+
+# Workspace Shell
+
+# Workspace Web
+assign [class="Chromium"] $ws2
+assign [class="Firefox"] $ws2
+assign [class="Thunderbird"] $ws2
+
+# Workspace Public
+assign [class="MessengerForDesktop"] $ws3
+assign [class="Telegram"] $ws3
+
+# Workspace Media
+assign [class="smplayer"] $ws4
+
+# Workspace Development
+assign [class="firefox-developer"] $ws5
+assign [class="qtcreator-bin"] $ws5
+assign [class="QtCreator"] $ws5
+assign [class="Unity"] $ws5
+assign [class="MonoDevelop"] $ws5
+assign [class="jetbrains-idea"] $ws5
+assign [class="jetbrains-clion"] $ws5
+assign [class='com-intellij-updater-Runner'] $ws5
+for_window [class='com-intellij-updater-Runner'] float enable
+assign [instance="sun-awt-X11-XWindowPeer" class="com-install4j-runtime-launcher-UnixLauncher"] $ws5
+
+# Workspace File
+assign [class="Nemo"] $ws6
+
+# Workspace Game
+assign [class="Steam"] $ws7
+assign [class="ppsspp"] $ws7
+for_window [class="ppsspp"] floating enable
+
+# Workspace Sync
+assign [class="Deluge"] $ws8
+assign [class="Uget-gtk"] $ws8
+
+# Workspace Document
+assign [instance="libreoffice"] $ws9
+assign [class="Evince"] $ws9
+
+# Workspace Misc
+assign [class="Gimp"] $ws10
+assign [class="Gimp-2.8"] $ws10
+assign [class="VirtualBox"] $ws10
+
+# Other rules
+
+# }}}
+
+# Applications binding {{{
+
+# Exit i3wm
+bindsym $mod+$shift+Escape exec i3shutdown
+
+# Terminal
+bindsym $mod+$ret exec urxvtc -e tmux-session Blanc
+bindsym $mod+$shift+$ret exec urxvtc -e tmux-session Arca
+bindsym $mod+$ctrl+$ret exec urxvtc -e tmux-session Ellen
+bindsym $mod+$alt+$ret exec urxvtc -e tmux-session Noir
+
+# program launcher
+bindsym $alt+F1 exec rofi -show window
+bindsym $alt+F2 exec rofi -show run
+
+# file manager
+bindsym $mod+e exec nemo
+
+# screen lock
+bindsym $mod+F11 exec cinnamon-screensaver-command -l
+
+# screenshot
+bindsym Print exec printscn --mode=full
+bindsym $ctrl+Print exec printscn --mode=full --upload=yes
+bindsym $shift+Print exec printscn --mode=select
+bindsym $ctrl+$shift+Print exec printscn --mode=select --upload=yes
+bindsym $alt+Print exec printscn --mode=window --upload=yes
+bindsym $ctrl+$alt+Print exec printscn --mode=window --upload=yes
+
+# media keys {{{
+bindsym XF86AudioRaiseVolume exec dvol -i 3 && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec dvol -d 3 && pkill -RTMIN+10 i3blocks
+
+bindsym XF86AudioMute exec amixer set Master toggle && pkill -RTMIN+10 i3blocks
+
+bindsym XF86AudioPlay exec mpdcontrol toggle && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioStop exec mpdcontrol stop && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioNext exec mpdcontrol next && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioPrev exec mpdcontrol prev && pkill -RTMIN+10 i3blocks
+
+
+bindsym XF86Sleep exec systemctl hybird-sleep
+
+bindsym XF86Calculator exec speedcrunch
+bindsym XF86TouchpadToggle exec touchpad-script auto
+
+bindsym XF86KbdBrightnessUp exec dkeyboardled up
+bindsym XF86KbdBrightnessDown exec dkeyboardled down
+
+bindsym XF86MonBrightnessUp exec dbrightness up
+bindsym XF86MonBrightnessDown exec dbrightness down
+
+bindsym XF86Mail exec thunderbird
+bindsym XF86HomePage exec firefox
+
+# }}}
+
+# }}}
+
+exec source $HOME/.config/i3/autostart
