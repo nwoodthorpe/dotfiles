@@ -74,6 +74,7 @@ NeoBundle 'vim-scripts/fcitx.vim'           " Fcitx Input Method autoswitch
 " Misc
 NeoBundle 'tmux-plugins/vim-tmux'           " tmuxconf color
 NeoBundle 'vimperator/vimperator.vim'       " vimperatorrc color
+NeoBundle 'PotatoesMaster/i3-vim-syntax'
 
 " }}}
 
