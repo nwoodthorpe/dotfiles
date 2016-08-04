@@ -24,4 +24,4 @@ case "${XDG_CURRENT_DESKTOP}" in
         ;;
 esac
 
-exec "$HOME/Softwares/VisualParadigm/Visual_Paradigm"
+exec "$HOME/Softwares/VisualParadigm/Visual_Paradigm" $@

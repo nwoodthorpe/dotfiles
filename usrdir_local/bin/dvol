@@ -118,11 +118,7 @@ if [ ! -e "$PIPE" ]; then
     mkfifo "$PIPE"
     (dzen2 -tw "$WIDTH" -h "$HEIGHT" -x "$XPOS" -y "$YPOS" -fn "$FONT" -bg "$background" -fg "$foreground" < "$PIPE" 
      rm -f "$PIPE") &
-fi
+ fi
 
 #Feed the pipe!
 (echo "$VOL" | gdbar -l "^i(${ICON})    " -fg "$bar_fg" -bg "$bar_bg" -w "$BAR_WIDTH" ; sleep "$SECS") > "$PIPE"
-
-sleep 0.1
-
-exit 0
