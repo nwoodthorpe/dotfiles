@@ -9,6 +9,10 @@ set $shift Shift
 set $ctrl Control
 set $esc Escape
 set $ret Return
+set $del Delete
+set $numdel KP_Decimal
+set $numlock Num_Lock
+set $capslock Caps_Lock
 floating_modifier $mod
 
 # }}}
@@ -21,7 +25,7 @@ font pango:Consolas 10
 new_window pixel 2
 
 # Titlebar format
-for_window [class=".*"] title_format " 🍀 %title"
+for_window [class=".*"] title_format " + %title"
 
 # Colors {{{
 # class                 border  backgr. text    indicator child_border
@@ -146,7 +150,7 @@ bindsym $mod+$shift+9 move container to workspace $ws9
 bindsym $mod+$shift+0 move container to workspace $ws10
 
 # reload the configuration file
-bindsym $mod+$esc reload
+bindsym $mod+$esc exec i3-msg reload && notify-send "i3wm" "Configuration reloaded." || notify-send "i3wm" "Configuration failed to reload."
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+$shift+r restart
 
@@ -207,8 +211,8 @@ assign [class="Unity"] $ws5
 assign [class="MonoDevelop"] $ws5
 assign [class="jetbrains-idea"] $ws5
 assign [class="jetbrains-clion"] $ws5
-assign [class='com-intellij-updater-Runner'] $ws5
-for_window [class='com-intellij-updater-Runner'] float enable
+assign [class="com-intellij-updater-Runner"] $ws5
+for_window [class="com-intellij-updater-Runner"] floating enable
 assign [instance="sun-awt-X11-XWindowPeer" class="com-install4j-runtime-launcher-UnixLauncher"] $ws5
 
 # Workspace File
@@ -233,13 +237,18 @@ assign [class="Gimp-2.8"] $ws10
 assign [class="VirtualBox"] $ws10
 
 # Other rules
+for_window [class="Gnome-system-monitor"] floating enable
 
 # }}}
 
 # Applications binding {{{
 
 # Exit i3wm
-bindsym $mod+$shift+Escape exec i3shutdown
+bindsym $ctrl+$alt+$del exec i3shutdown
+bindsym $ctrl+$alt+$numdel exec i3shutdown
+
+# System monitor
+bindsym $ctrl+$esc exec gnome-system-monitor
 
 # Terminal
 bindsym $mod+$ret exec urxvtc -e tmux-session Blanc
@@ -266,8 +275,8 @@ bindsym $alt+Print exec printscn --mode=window --upload=yes
 bindsym $ctrl+$alt+Print exec printscn --mode=window --upload=yes
 
 # media keys {{{
-bindsym XF86AudioRaiseVolume exec dvol -i 3 && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec dvol -d 3 && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioRaiseVolume exec amixer set Master on && amixer set Master 3%+ && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec amixer set Master on && amixer set Master 3%- && pkill -RTMIN+10 i3blocks
 
 bindsym XF86AudioMute exec amixer set Master toggle && pkill -RTMIN+10 i3blocks
 
@@ -292,6 +301,12 @@ bindsym XF86Mail exec thunderbird
 bindsym XF86HomePage exec firefox
 
 # }}}
+
+# }}}
+
+# Signal binding {{{
+bindsym $numlock exec pkill -RTMIN+11 i3blocks
+bindsym $capslock exec pkill -RTMIN+11 i3blocks
 
 # }}}
 

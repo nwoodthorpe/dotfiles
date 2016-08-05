@@ -365,6 +365,44 @@ def mpd(show_emblem=True):
     return '<span color="{1}">{0}</span>'.format(label.upper(), label_color)
 
 
+def xkb_indicator(show_emblem=True):
+    emblem = "\u2325"  # '\u2328'
+    label = ""
+    label_active_color = "#D19A66"
+    label_inactive_color = "#828997"
+    numlock_symbol = "[1]"  # " 1⃣  "
+    capslock_symbol = "[A]"  # " A⃣  "
+    emblem_color = label_active_color
+
+    xkb_status = subprocess.check_output(['xset', 'q'])
+
+    numlock_status = re.search('(Num Lock: +)(on|off)', xkb_status.decode())
+
+    if numlock_status.group(2) == "on":
+        numlock_color = label_active_color
+    else:
+        numlock_color = label_inactive_color
+
+    label += '<span color="{1}">{0}</span>'.format(numlock_symbol,
+                                                   numlock_color)
+
+    capslock_status = re.search('(Caps Lock: +)(on|off)', xkb_status.decode())
+
+    if capslock_status.group(2) == "on":
+        capslock_color = label_active_color
+    else:
+        capslock_color = label_inactive_color
+
+    label += '<span color="{1}">{0}</span>'.format(capslock_symbol,
+                                                   capslock_color)
+
+    if show_emblem:
+        return '<span color="{2}">{0}</span> {1}'\
+            .format(emblem, label, emblem_color)
+
+    return label
+
+
 def pacman(show_emblem=True):
     return "Not Available".upper()
 
