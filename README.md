@@ -16,6 +16,7 @@ Some useful files you may want:
 - `usrdir_local/share/nemo/actions` Some custom nemo context menu actions
 
 ### Other dotfiles
+- [i3wm](https://github.com/bookletchoir/i3wm-config)
 - [zsh](https://github.com/bookletchoir/zsh.d)
 
 ### TODO
