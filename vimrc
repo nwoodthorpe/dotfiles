@@ -1,3 +1,5 @@
+set encoding=utf8
+
 " NeoBundle Plugin Manager
 
 if has('vim_starting')
@@ -25,6 +27,10 @@ NeoBundle 'Shougo/vimproc.vim', {'build': {'linux': 'make'}}
 NeoBundle 'flazz/vim-colorschemes'          " color schemes
 NeoBundle 'zenorocha/dracula-theme', {'rtp': 'vim/'} " color scheme
 NeoBundle 'morhetz/gruvbox'                 " color scheme
+NeoBundle 'rakr/vim-two-firewatch'          " colorscheme
+NeoBundle 'aliou/moriarty.vim'
+NeoBundle 'notpratheek/vim-luna'
+NeoBundle 'mhartington/oceanic-next'
 
 NeoBundle 'bling/vim-airline'               " powerline status bar
 NeoBundle 'vim-airline/vim-airline-themes'  " vim-airline theme
@@ -439,39 +445,39 @@ let g:UltiSnipsListSnippets = "<c-x>"
 
 " Syntastic {{{
 
-"let g:syntastic_cpp_compiler = 'gcc'
-let g:syntastic_cpp_compiler_options = " -std=c++11 -Wall -Wextra -Wpedantic $(pkg-config gtkmm-3.0 --libs --cflags)" "$(pkg-config gstreamer-0.10 --libs --cflags)
-let g:syntastic_python_checkers = ['flake8', 'python']
-let g:syntastic_html_checkers = ['pylint']
-let g:syntastic_python_pylint_args = "--load-plugins pylint_django"
-let g:syntastic_python_python_exec = "ipython"
-let g:syntastic_python_flake8_exec = 'flake8'
-let g:syntastic_python_pylint_post_args = '--msg-template="{path}:{line}:{column}:{C}: [{symbol} {msg_id}] {msg}"'
-"let g:syntastic_html_tidy_empty_tags = ['<i>']
-let g:syntastic_html_tidy_ignore_errors = ['trimming empty', '<a> escaping malformed URI reference']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+""let g:syntastic_cpp_compiler = 'gcc'
+"let g:syntastic_cpp_compiler_options = " -std=c++11 -Wall -Wextra -Wpedantic $(pkg-config gtkmm-3.0 --libs --cflags)" "$(pkg-config gstreamer-0.10 --libs --cflags)
+"let g:syntastic_python_checkers = ['flake8', 'python']
+"let g:syntastic_html_checkers = ['pylint']
+"let g:syntastic_python_pylint_args = "--load-plugins pylint_django"
+"let g:syntastic_python_python_exec = "ipython"
+"let g:syntastic_python_flake8_exec = 'flake8'
+"let g:syntastic_python_pylint_post_args = '--msg-template="{path}:{line}:{column}:{C}: [{symbol} {msg_id}] {msg}"'
+""let g:syntastic_html_tidy_empty_tags = ['<i>']
+"let g:syntastic_html_tidy_ignore_errors = ['trimming empty', '<a> escaping malformed URI reference']
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
-let g:syntastic_auto_jump = 0
-let g:syntastic_loc_list_height = 10
+"let g:syntastic_auto_jump = 0
+"let g:syntastic_loc_list_height = 10
 
-highlight SyntasticErrorSign guifg=white guibg=pink
-highlight SyntasticWarningSign guifg=black guibg=yellow
+"highlight SyntasticErrorSign guifg=white guibg=pink
+"highlight SyntasticWarningSign guifg=black guibg=yellow
 
-set sessionoptions-=blank
+"set sessionoptions-=blank
 
-let g:syntastic_mode_map = { 'passive_filetypes': ['sbt', 'java'] }
+"let g:syntastic_mode_map = { 'passive_filetypes': ['sbt', 'java'] }
 
-" Disable Eclim plugin (enable on filetype specific behavior setting)
-let g:EclimFileTypeValidate = 0
+"" Disable Eclim plugin (enable on filetype specific behavior setting)
+"let g:EclimFileTypeValidate = 0
 
-" Symbols ☢✗✠∆»☡☣☩
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_style_error_symbol = '☢'
-let g:syntastic_warning_symbol = '⚡'
-let g:syntastic_style_warning_symbol = '☩'
+"" Symbols ☢✗✠∆»☡☣☩
+"let g:syntastic_error_symbol = '✗'
+"let g:syntastic_style_error_symbol = '☢'
+"let g:syntastic_warning_symbol = '⚡'
+"let g:syntastic_style_warning_symbol = '☩'
 
 " }}}
 
@@ -735,9 +741,15 @@ set noshowmode
 " Color scheme
 if has('gui_running')
     "color gruvbox
-    "set background=dark
     color molokai
+    set background=dark
+    "colo two-firewatch
+    "let g:airline_theme='twofirewatch' " if you have Airline installed and want the associated theme
+    "color luna
+    "color OceanicNext
 else
+    set t_Co=256
+    set background=dark
     color monokain
 endif
 
@@ -815,7 +827,6 @@ highlight DiffAdd    ctermbg=20
 if has("gui_running")
     set lines=45 columns=90
     set guifont=Powerline\ Consolas\ 10
-    "set guifont=Consolas\ for\ Powerline\ 10
     "set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
     "set guifont=Fira\ Code\ Regular\ 9
     "set guifont=PragmataPro\ for\ Powerline\ 9
@@ -890,40 +901,6 @@ function! PythonKeywordHighlight()
 endfunction
 " }}}
 
-" Enable ibus-bogo on insert mode (slow as f**k){{{
-
-function! IbusToggle()
-
-    let g:ibus_toggled = get(g:, 'ibus_toggled', 1)
-
-    if !exists('ibus_normal')
-        let g:ibus_normal = 'xkb:us::eng'
-    endif
-
-    if !exists('ibus_insert')
-        let g:ibus_insert = 'bogo'
-    endif
-
-    augroup IBus
-        autocmd!
-    augroup END
-
-    if g:ibus_toggled
-        augroup IBus
-            au InsertEnter * :call system('ibus engine ' . g:ibus_insert)
-            au InsertLeave * :call system('ibus engine ' . g:ibus_normal)
-        augroup END
-    endif
-
-    "function! IBusEngine()
-    "return split(system('ibus engine'), "\n")[0]
-    "endfunction
-
-    "let &statusline = '%f%m%r%h%w [%n:%{&ff}/%Y] %{IBusEngine()}%=[0x%04.4B][%03v][%p%% line %l of %L]'
-
-endfunction
-" }}}
-
 " Add highlighting for function definition in C++ {{{
 function! EnhanceCppSyntax()
   syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
@@ -980,6 +957,19 @@ function! FoldText1()
     let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
     return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
 endf
+
+function! NeatFoldText()
+  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+  let foldchar = matchstr(&fillchars, 'fold:\zs.')
+  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(foldchar, 8)
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+
+set foldtext=NeatFoldText()
 
 "set foldtext=FoldText1()
 
@@ -1095,6 +1085,10 @@ nmap <Leader>e :NERDTreeToggle<CR><C-w>=
 " Open Tagbar
 nmap <leader>t :TagbarToggle<CR><C-w>=
 
+" Aligned comment (C-/)
+nmap <C-_> <leader>cb
+vmap <C-_> <leader>cb
+
 " Buffers {
 
 " This allows buffers to be hidden if you've modified a buffer.
@@ -1134,27 +1128,27 @@ nmap gT :bprevious<CR>
 "nmap <C-i> :vsplit<CR>
 
 " Swap buffers {{{
-function! MarkWindowSwap()
-    " marked window number
-    let g:markedWinNum = winnr()
-    let g:markedBufNum = bufnr("%")
-endfunction
+"function! MarkWindowSwap()
+"    " marked window number
+"    let g:markedWinNum = winnr()
+"    let g:markedBufNum = bufnr("%")
+"endfunction
 
-function! DoWindowSwap()
-    let curWinNum = winnr()
-    let curBufNum = bufnr("%")
-    " Switch focus to marked window
-    exe g:markedWinNum . "wincmd w"
+"function! DoWindowSwap()
+"    let curWinNum = winnr()
+"    let curBufNum = bufnr("%")
+"    " Switch focus to marked window
+"    exe g:markedWinNum . "wincmd w"
 
-    " Load current buffer on marked window
-    exe 'hide buf' curBufNum
+"    " Load current buffer on marked window
+"    exe 'hide buf' curBufNum
 
-    " Switch focus to current window
-    exe curWinNum . "wincmd w"
+"    " Switch focus to current window
+"    exe curWinNum . "wincmd w"
 
-    " Load marked buffer on current window
-    exe 'hide buf' g:markedBufNum
-endfunction
+"    " Load marked buffer on current window
+"    exe 'hide buf' g:markedBufNum
+"endfunction
 
 "nnoremap H :call MarkWindowSwap()<CR> <C-w>h :call DoWindowSwap()<CR>
 "nnoremap J :call MarkWindowSwap()<CR> <C-w>j :call DoWindowSwap()<CR>
@@ -1421,11 +1415,13 @@ augroup END
 
 " }}}
 
+" tex {{{
+
 augroup filetype_tex
     autocmd!
     autocmd filetype tex nmap <F5> :!pdflatex "%:p" <CR>
 augroup END
-
+" }}}
 
 " vala {{{
 augroup filetype_vala
