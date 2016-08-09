@@ -3,7 +3,7 @@
 ! Theme
 rofi.color-enabled:                  true
 rofi.color-window:                   #222222, #3b3b3b, #3b3b3b
-rofi.color-normal:                   #333333, #fdf6e3, #444444, #626262, #eee8d5
+rofi.color-normal:                   #333333, #fdf6e3, #444444, #61819C, #eee8d5
 rofi.color-active:                   #333333, #3CBBFF, #444444, #1d90cd, #fdf6e3
 rofi.color-urgent:                   #333333, #FF4B4B, #444444, #dc322f, #fdf6e3
 rofi.font:                           consolas 10
