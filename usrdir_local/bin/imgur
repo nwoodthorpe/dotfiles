@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 # Written by bookletchoir@github
 # Feel free to edit it as you like
 
@@ -7,7 +7,7 @@
 client_id="76494bd96adaa5e"
 img=$1
 upload_api="https://api.imgur.com/3/upload"
-resource="$HOME/.cache/printscn_upload"
+resource="$HOME/.cache/img_upload_cache"
 retry=3
 delay=3
 
@@ -46,8 +46,9 @@ upload() {
 
 # Copy link to clipboards
 copy_to_clipboard() {
-    printf "$link" | xclip -selection c
-    printf "$link" | xclip -selection p
+    #printf "$link" | xclip -selection c
+    #printf "$link" | xclip -selection p
+    copy "$link"
 }
 
 # Extract link from returned string from server
@@ -120,4 +121,4 @@ done
 cleanup
 
 # Exit code
-{[ $i -eq $retry] && exit 1} || exit 0
+{[ $i -eq $retry ] && exit 1} || exit 0
