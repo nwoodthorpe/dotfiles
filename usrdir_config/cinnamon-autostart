@@ -1,16 +1,24 @@
 #!/bin/bash
 
-conky -q -d
-#copyq &
-#insync start --no-custom-folder-icon &
+# Environment
+[[ -f ~/.Xresources ]] && xrdb ~/.Xresources
+source ~/.profile
+
+# Daemons & backgrounds
+conky -q &
 urxvtd --quiet --opendisplay --fork &
-unclutter &
-thunderbird &
-#/usr/share/android-notifier-desktop/run.sh &
-numlockx on &
-xrdb ~/.Xresources &
-mpDris2 &
-fcitx &
 syndaemon -d -k -i 2 &
-devdocs-server &
+
+# Tray applications
+copyq &
+#insync start --no-custom-folder-icon &
+fcitx &
+mpDris2 &
+thunderbird &
+
+# Misc
+unclutter &
+numlockx on &
 touchpad-script off &
+devdocs-server &
+archwiki-server &
