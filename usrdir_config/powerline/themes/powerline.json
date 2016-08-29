@@ -40,8 +40,8 @@
 
         "powerline.segments.common.net.network_load": {
             "args": {
-                "recv_format": "⬇ {value:>8}",
-                "sent_format": "⬆ {value:>8}"
+                "recv_format": "▼ {value:>8}",
+                "sent_format": "▲ {value:>8}"
             }
         },
         "powerline.segments.common.net.hostname": {
@@ -56,7 +56,7 @@
             }
         },
         "powerline.segments.common.sys.uptime": {
-            "before": "⬆ "
+            "before": "▲ "
         },
         "powerline.segments.common.mail.email_imap_alert": {
             "before": "✉ "
