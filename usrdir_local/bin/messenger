@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXEC="$HOME/Softwares/Messenger/Messenger"
+EXEC="$LOCAL_SOFTWARE_DIR/Messenger/Messenger"
 
 exec -a "$0" "$EXEC" $params &
 pid=$!

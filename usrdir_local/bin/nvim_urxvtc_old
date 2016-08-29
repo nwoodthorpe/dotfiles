@@ -1,8 +1,6 @@
 #!/bin/zsh
 
 local geometry="100x50"
-local depth=0
-local bg_color='#202020'
 
 exec urxvtc -geometry "${geometry}" \
             -e nvim $@

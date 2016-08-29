@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd $HOME/Repositories/devdocs
+cd "$LOCAL_REPOSITORY_DIR/devdocs"
 
 bundle exec rackup -o 127.0.0.1 -p 9292 -D

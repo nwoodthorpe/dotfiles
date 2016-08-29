@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# deps: lua51 lua51-sec lua51-socket
+
+gamedir="${LOCAL_REPOSITORY_DIR}/sgre"
+localroot="${gamedir}/deps"
+love09="${localroot}/bin/love"
+
+export LD_LIBRARY_PATH="${localroot}/lib:${localroot}/usr/share"
+
+exec "${love09}" "$gamedir"

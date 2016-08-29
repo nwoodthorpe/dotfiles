@@ -1,0 +1,11 @@
+#!/bin/bash
+
+username="bookletchoir@mail.com"
+exec_file="${LOCAL_REPOSITORY_DIR}/udemy-dl/src/udemy-dl"
+
+pre_cwd=$PWD
+trap "cd ${pre_cwd}" INT TERM EXIT
+
+cd "$HOME/Documents/Udemy"
+
+exec python3 "${exec_file}" -u "${username}" -d "aria2c" --use-ffmpeg "$@"
