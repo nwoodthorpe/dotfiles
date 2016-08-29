@@ -5,10 +5,10 @@
 URxvt.iconFile: /usr/share/icons/Numix-Square/scalable/apps/terminal.svg
 
 ! Transparency
-!URxvt*depth:        32
-!URxvt*background:   rgba:0000/0000/0000/CCCC
+URxvt*depth:        32
+URxvt*background:   rgba:0000/0000/0000/CCCC
 !URxvt*depth: 0
-URxvt*background: rgb:18/18/18
+!URxvt*background: rgb:18/18/18
 
 ! Color table
 #include "/home/bookletchoir/.Xresources.d/colors/euphrasia"
@@ -32,7 +32,7 @@ URxvt*letterSpace: -1
 
 ! Perl extensions
 URxvt*perl-lib:         /usr/lib/urxvt/perl
-URxvt*perl-ext-common:  default,matcher,clipboard,url-select,resize-font
+URxvt*perl-ext-common:  default,matcher,url-select,resize-font
 
 ! Perl extension -  matcher
 URxvt*perl-matcher:         1
@@ -50,9 +50,9 @@ URxvt.iso14755:     false
 URxvt.iso14755_52:  false
 
 ! Perl extension - clipboard
-URxvt.keysym.M-c:   perl:clipboard:copy
-URxvt.keysym.M-v:   perl:clipboard:paste
-URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+!URxvt.keysym.M-c:   perl:clipboard:copy
+!URxvt.keysym.M-v:   perl:clipboard:paste
+!URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 
 ! Perl extension - resize-font
 URxvt.resize-font.smaller:  C-Down
@@ -72,8 +72,8 @@ URxvt.colorBD:  #d7d7d7
 URxvt.colorUL:  #87afd7
 
 ! Fonts
-URxvt.font:             xft:Ubuntu Mono derivative Powerline:pixelsize=14:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:antialias=true:hinting=true
-URxvt.boldFont:         xft:Ubuntu Mono derivative Powerline:pixelsize=14:bold:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:antialias=true:hinting=true
-URxvt.italicFont:       xft:Ubuntu Mono derivative Powerline:pixelsize=14:italic:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:italic:antialias=true:hinting=true
-URxvt.boldItalicFont:   xft:Ubuntu Mono derivative Powerline:pixelsize=14:bold:italic:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:italic:antialias=true:hinting=true
+URxvt.font:             xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:antialias=true:hinting=true;xft:FontAwesome:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:antialias=true:hinting=true
+URxvt.boldFont:         xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:bold:antialias=true:hinting=true;xft:FontAwesome:bold:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:antialias=true:hinting=true
+URxvt.italicFont:       xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:italic:antialias=true:hinting=true;xft:FontAwesome:italic:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:italic:antialias=true:hinting=true
+URxvt.boldItalicFont:   xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:bold:italic:antialias=true:hinting=true;xft:FontAwesome:bold:italic:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:italic:antialias=true:hinting=true
 
