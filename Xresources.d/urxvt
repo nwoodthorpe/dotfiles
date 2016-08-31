@@ -4,14 +4,15 @@
 ! Application Icon
 URxvt.iconFile: /usr/share/icons/Numix-Square/scalable/apps/terminal.svg
 
-! Transparency
-URxvt*depth:        32
-URxvt*background:   rgba:0000/0000/0000/CCCC
-!URxvt*depth: 0
-!URxvt*background: rgb:18/18/18
-
 ! Color table
-#include "/home/bookletchoir/.Xresources.d/colors/euphrasia"
+#include "/home/bookletchoir/.Xresources.d/colors/onedark"
+
+! Transparency
+!URxvt*depth:        32
+!URxvt*background:   rgba:0000/0000/0000/CCCC
+!URxvt*depth: 0
+
+URxvt*background: rgb:16/16/16
 
 ! Default size
 URxvt*geometry: 80x24
