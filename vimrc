@@ -1,17 +1,6 @@
-" Encoding {{{
-if !has('nvim')
-    set encoding=utf8
-endif
-
-" }}}
-
 " Plugin Manager {{{
 
-if has('nvim')
-    call plug#begin('~/.config/nvim/bundle')
-else
-    call plug#begin('~/.vim/bundle')
-endif
+call plug#begin('~/.config/nvim/bundle')
 
 " Bundle list {{{
 " Appearance
@@ -41,11 +30,7 @@ Plug 'scrooloose/nerdcommenter'        " commenter
 Plug 'junegunn/fzf.vim'                " fuzzy search  TODO
 
 " Development
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim'
-else
-    Plug 'Shougo/neocomplete.vim'
-endif
+Plug 'Shougo/deoplete.nvim'
 
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' " Snippets
 Plug 'airblade/vim-rooter'             " Automatic change working dir
@@ -86,10 +71,6 @@ call plug#end()
 "" Disable powerline completely
 let g:powerline_loaded = 1
 let g:powerline_pycmd = 'py3'
-
-if !has('nvim')
-    set laststatus=2
-endif
 
 set incsearch
 
@@ -335,85 +316,83 @@ let g:indentLine_char = '┆'
 
 " NeoComplete {{{
 
-if !has('nvim')
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"if !has('nvim')
+"    " Disable AutoComplPop.
+"    let g:acp_enableAtStartup = 0
+"    " Use neocomplete.
+"    let g:neocomplete#enable_at_startup = 1
+"    " Use smartcase.
+"    let g:neocomplete#enable_smart_case = 1
+"    " Set minimum syntax keyword length.
+"    let g:neocomplete#sources#syntax#min_keyword_length = 3
+"    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-                \ 'default' : '',
-                \ 'vimshell' : $HOME.'/.vimshell_hist',
-                \ 'scheme' : $HOME.'/.gosh_completions'
-                \ }
+"    " Define dictionary.
+"    let g:neocomplete#sources#dictionary#dictionaries = {
+"                \ 'default' : '',
+"                \ 'vimshell' : $HOME.'/.vimshell_hist',
+"                \ 'scheme' : $HOME.'/.gosh_completions'
+"                \ }
 
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+"    " Define keyword.
+"    if !exists('g:neocomplete#keyword_patterns')
+"        let g:neocomplete#keyword_patterns = {}
+"    endif
+"    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
+"    " Plugin key-mappings.
+"    inoremap <expr><C-g>     neocomplete#undo_completion()
+"    inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-        return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-        " For no inserting <CR> key.
-        "return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+"    " Recommended key-mappings.
+"    " <CR>: close popup and save indent.
+"    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"    function! s:my_cr_function()
+"        return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+"        " For no inserting <CR> key.
+"        "return pumvisible() ? "\<C-y>" : "\<CR>"
+"    endfunction
+"    " <TAB>: completion.
+"    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"    " <C-h>, <BS>: close popup and delete backword char.
+"    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"    " Close popup by <Space>.
+"    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
+"    " AutoComplPop like behavior.
+"    "let g:neocomplete#enable_auto_select = 1
 
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+"    " Shell like behavior(not recommended).
+"    "set completeopt+=longest
+"    "let g:neocomplete#enable_auto_select = 1
+"    "let g:neocomplete#disable_auto_complete = 1
+"    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"    " Enable omni completion.
+"    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"    " Enable heavy omni completion.
+"    if !exists('g:neocomplete#sources#omni#input_patterns')
+"        let g:neocomplete#sources#omni#input_patterns = {}
+"    endif
+"    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-endif
+"    " For perlomni.vim setting.
+"    " https://github.com/c9s/perlomni.vim
+"    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"endif
 " }}}
 
 " deoplete {{{
-if has('nvim')
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#auto_complete_start_length = 0
-endif
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_start_length = 0
 " }}}
 
 " UltiSnips {{{
@@ -447,10 +426,6 @@ let g:UltiSnipsListSnippets = "<c-x>"
 
 "highlight SyntasticErrorSign guifg=white guibg=pink
 "highlight SyntasticWarningSign guifg=black guibg=yellow
-
-"if !has('nvim')
-"   set sessionoptions-=blank
-"endif
 
 "let g:syntastic_mode_map = { 'passive_filetypes': ['sbt', 'java'] }
 
@@ -540,11 +515,7 @@ au Syntax * RainbowParenthesesLoadChevrons
 " vim-easytag {{{
 let b:easytags_auto_highlight = 0
 
-if has('nvim')
-    let g:easytags_file = '$HOME/.config/nvim/tags/others'
-else
-    let g:easytags_file = '$HOME/.vim/tags/others'
-endif
+let g:easytags_file = '$HOME/.config/nvim/tags/others'
 
 " }}}
 
@@ -641,12 +612,6 @@ augroup filetype_misc
     autocmd filetype help set number
 augroup END
 
-" Mouse support
-if !has('nvim')
-    set mouse=a
-    set ttymouse=xterm2
-endif
-
 " Syntax Highlight
 syntax on
 
@@ -656,20 +621,11 @@ syntax on
 " Show current line
 set cursorline
 
-" toggle menu for vim completion
-if !has('nvim')
-    set wildmenu
-endif
-
 " Limit completion popup height
 set pumheight=20
 
 " only redraw vim window when needed
 set lazyredraw
-
-if !has('nvim')
-    set ttyfast
-endif
 
 " folding
 set foldenable
@@ -688,23 +644,10 @@ vnoremap <Space> zf
 set noshowmode
 
 " Color scheme
-if !has('nvim') && has('gui_running')
-    "color gruvbox
-    "color molokai
-    color onedark
-    set background=dark
-    let g:airline_theme='onedark'
-    "colo two-firewatch
-    "let g:airline_theme='twofirewatch' " if you have Airline installed and want the associated theme
-    "color luna
-    "color OceanicNext
-else
-    set t_Co=256
-    set background=dark
-    "color monokain
-    color onedark
-    let g:onedark_termcolors=256
-endif
+set t_Co=256
+set background=dark
+color onedark
+let g:onedark_termcolors=256
 
 " Tabstop 4 and replace tab with spaces
 filetype plugin indent on
@@ -716,12 +659,6 @@ set expandtab
 " Clipboard sync with Xorg clipboard
 set clipboard=unnamedplus
 
-" Fix backspace and delete button
-if !has('nvim')
-    set backspace=indent,eol,start
-    fixdel
-endif
-
 " Set line number
 set number
 
@@ -729,10 +666,6 @@ set number
 let &colorcolumn=81
 
 " Search function
-if !has('nvim')
-    set hlsearch
-set incsearch
-endif
 set ignorecase
 set smartcase
 
@@ -776,22 +709,6 @@ highlight PmenuSel ctermfg=0 ctermbg=lightblue
 highlight DiffAdd    ctermbg=20
 
 " GUI settings
-
-if !has('nvim') && has("gui_running")
-    set lines=45 columns=90
-    set guifont=Powerline\ Consolas\ 10
-    "set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
-    "set guifont=Fira\ Code\ Regular\ 9
-    "set guifont=PragmataPro\ for\ Powerline\ 9
-
-    set guioptions-=m  "remove menu bar
-    set guioptions-=T  "remove toolbar
-    set guioptions-=r  "remove right-hand scroll bar
-    set guioptions-=L  "remove left-hand scroll bar
-
-    set guiheadroom=0
-    set linespace=0
-endif
 
 " }}}
 
@@ -897,72 +814,34 @@ endfunction
 
 " }}}
 
-" vimfiles setting " TODO migrate to nvim directory {{{
-
-" Auto reload vim settings
-if !has('nvim')
-    augroup autoreload
-        au!
-        au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-    augroup END
-endif
+" vimfiles setting {{{
 
 " backup dir
 " Save your backups to a less annoying place than the current directory.
 " If you have .vim-backup in the current directory, it'll use that.
 " Otherwise it saves it to ~/.vim/backup or . if all else fails.
-if has('nvim')
-    if isdirectory($HOME . '/.config/nvim/backup') == 0
-        :silent !mkdir -p ~/.config/nvim/backup >/dev/null 2>&1
-    endif
-else
-    if isdirectory($HOME . '/.vim/backup') == 0
-        :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
-    endif
+if isdirectory($HOME . '/.config/nvim/backup') == 0
+    :silent !mkdir -p ~/.config/nvim/backup >/dev/null 2>&1
 endif
 
 set backupdir-=.
 set backupdir+=.
 set backupdir-=~/
-
-if has('nvim')
-    set backupdir^=~/.config/nvim/backup/
-else
-    set backupdir^=~/.vim/backup/
-endif
-
+set backupdir^=~/.config/nvim/backup/
 set backup
 
 " swap dir
 " Save your swp files to a less annoying place than the current directory.
 " If you have .vim-swap in the current directory, it'll use that.
 " Otherwise it saves it to ~/.vim/swap, ~/tmp or .
-if has('nvim')
-    if isdirectory($HOME . '/.config/nvim/swap') == 0
-        :silent !mkdir -p ~/.config/nvim/swap >/dev/null 2>&1
-    endif
-else
-    if isdirectory($HOME . '/.vim/swap') == 0
-        :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
-    endif
+if isdirectory($HOME . '/.config/nvim/swap') == 0
+    :silent !mkdir -p ~/.config/nvim/swap >/dev/null 2>&1
 endif
 
 set directory=./.vim-swap//
-
-if has('nvim')
-    set directory+=~/.config/nvim/swap//
-else
-    set directory+=~/.config/nvim/swap//
-endif
-
+set directory+=~/.config/nvim/swap//
 set directory+=~/tmp//
 set directory+=.
-
-" vim info
-" viminfo stores the the state of your previous editing session
-if !has('nvim')
-    set viminfo+=n~/.vim/viminfo
-endif
 
 " undo dir
 if exists("+undofile")
@@ -970,40 +849,16 @@ if exists("+undofile")
     " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
     " :help undo-persistence
     " This is only present in 7.3+
-    if has('nvim')
-        if isdirectory($HOME . '/.config/vim/undo') == 0
-            :silent !mkdir -p ~/.config/vim/undo > /dev/null 2>&1
-        endif
-    else
-    if isdirectory($HOME . '/.vim/undo') == 0
-            :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
-        endif
+    if isdirectory($HOME . '/.config/nvim/undo') == 0
+        :silent !mkdir -p ~/.config/nvim/undo > /dev/null 2>&1
     endif
 
     set undodir=./.vim-undo//
-
-    if has('nvim')
-        set undodir+=~/.config/nvim/undo//
-    else
-        set undodir+=~/.config/nvim/undo//
-    endif
-
+    set undodir+=~/.config/nvim/undo//
     set undofile
 endif
 
-" Expand Undo
-set undofile
-
-if has('nvim')
-    set undodir=$HOME/.config/nvim/history
-else
-    set undodir=$HOME/.vim/history
-endif
-
-" tagfiles
-if !has('nvim')
-    set tags=./tags,tags
-endif
+set undodir=$HOME/.config/nvim/history
 
 " }}}
 
@@ -1132,10 +987,6 @@ augroup filetype_c
     "autocmd FileType c TagbarOpen
     autocmd FileType c autocmd BufWritePre <buffer> :%s/\s\+$//e
     "autocmd FileType c set textwidth=80
-
-    if !has('nvim') && has('gui_running')
-        "autocmd FileType c set lines=50 columns=120
-    endif
 augroup END
 
 " }}}
@@ -1153,10 +1004,6 @@ augroup filetype_cpp
     autocmd FileType cpp nnoremap <C-f> :%!astyle --options=$HOME/.vim/astyle/cpp-custom<CR>
 
     autocmd Syntax cpp call EnhanceCppSyntax()
-
-    if !has('nvim') && has('gui_running')
-        "autocmd FileType cpp set lines=50 columns=120
-    endif
 augroup END
 
 " }}}
@@ -1212,10 +1059,6 @@ augroup filetype_java
     "autocmd FileType java set textwidth=100
     "autocmd FileType java TagbarOpen
     autocmd FileType java autocmd BufWritePre <buffer> :%s/\s\+$//e
-
-    if !has('nvim') && has('gui_running')
-        "autocmd FileType java set lines=50 columns=140
-    endif
 augroup END
 
 " }}}
@@ -1280,11 +1123,7 @@ augroup END
 augroup filetype_php
     autocmd!
     autocmd FileType php vmap <C-f> :Autoformat<CR>
-    if !has('nvim') && has('gui_running')
-        autocmd FileType php nmap <F5> :!urxvtc -hold -e php "%:p" <CR><CR>
-    else
-        autocmd FileType php nmap <F5> :!clear && php "%:p"<CR>
-    endif
+    autocmd FileType php nmap <F5> :!clear && php "%:p"<CR>
 augroup END
 
 " }}}
@@ -1301,16 +1140,8 @@ augroup filetype_py
     autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
     autocmd FileType python autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd FileType python call PythonKeywordHighlight()
-
-    if !has('nvim') && has('gui_running')
-        "autocmd FileType python set lines=50 columns=120
-        autocmd FileType python nmap <F5> :!urxvtc -hold -e ipython "%:p"<CR><CR>
-        autocmd FileType python nmap <F6> :!urxvtc --title "PuDB - A full-screen, console-based visual debugger for Python" -depth 0 -bg '\#000000' -geometry 130x55 -e ipython -m pudb "%:p" <CR><CR>
-    else
-        autocmd FileType python nmap <F5> :!clear && ipython "%:p"<CR>
-        autocmd FileType python nmap <F6> :!clear && ipython -m pudb "%:p" <CR><CR>
-    endif
-
+    autocmd FileType python nmap <F5> :!clear && ipython "%:p"<CR>
+    autocmd FileType python nmap <F6> :!clear && ipython -m pudb "%:p" <CR><CR>
     autocmd FileType python vmap <C-f> :Autoformat<CR>
 augroup END
 
@@ -1321,10 +1152,6 @@ augroup filetype_rb
     autocmd!
     "autocmd FileType ruby TagbarOpen
     autocmd FileType ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
-
-    if !has('nvim') && has('gui_running')
-        "autocmd FileType ruby set lines=50 columns=120
-    endif
 augroup END
 
 " }}}
