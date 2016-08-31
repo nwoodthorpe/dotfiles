@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export TERM=screen-256color
+
+TERMINFO="$HOME/.config/nvim/terminfo.ti"
+
+if [[ ! -f ${TERMINFO} ]]; then
+    infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > "${TERMINFO}"
+fi
+
+tic "${TERMINFO}"
+
+exec /usr/bin/nvim "$@"

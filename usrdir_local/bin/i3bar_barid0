@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec i3bar --bar_id="bar-0"

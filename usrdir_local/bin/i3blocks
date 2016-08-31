@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec "${LOCAL_REPOSITORY_DIR}/i3blocks/i3blocks" "$@"
