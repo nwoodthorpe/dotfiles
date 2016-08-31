@@ -36,6 +36,11 @@ eval "$(nodenv init -)"
 # Set local bin on top of path
 export PATH="$LOCAL_BIN_DIR:$PATH"
 
+# Wine options
+export WINEARCH=win32
+export WINEPREFIX="$HOME/.local/wine/win32"
+export WINEDLLOVERRIDES="winemenubuilder.exe=d"
+
 # Java options
 export FT2_SUBPIXEL_HINTING=1
 #export _JAVA_OPTIONS="-Djdk.gtk.version=3"

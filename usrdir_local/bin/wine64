@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export WINEARCH=win64
+export WINEPREFIX="$HOME/.local/wine/win64"
+export WINEDLLOVERRIDES="winemenubuilder.exe=d"
+
+exec /usr/bin/wine64 "$@"
