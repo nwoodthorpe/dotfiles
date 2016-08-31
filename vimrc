@@ -1,95 +1,85 @@
-set encoding=utf8
-
-" NeoBundle Plugin Manager
-
-if has('vim_starting')
-    if &compatible
-        set nocompatible               " Be iMproved
-    endif
-
-    " Required:
-    set runtimepath+=$HOME/.vim/bundle/neobundle.vim/
+" Encoding {{{
+if !has('nvim')
+    set encoding=utf8
 endif
-
-" Required:
-call neobundle#begin(expand('$HOME/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Bundle list {{{
-
-" Required
-NeoBundle 'Shougo/vimproc.vim', {'build': {'linux': 'make'}}
-
-" Appearance
-NeoBundle 'flazz/vim-colorschemes'          " color schemes
-NeoBundle 'zenorocha/dracula-theme', {'rtp': 'vim/'} " color scheme
-NeoBundle 'morhetz/gruvbox'                 " color scheme
-NeoBundle 'rakr/vim-two-firewatch'          " colorscheme
-NeoBundle 'aliou/moriarty.vim'
-NeoBundle 'notpratheek/vim-luna'
-NeoBundle 'mhartington/oceanic-next'
-
-NeoBundle 'bling/vim-airline'               " powerline status bar
-NeoBundle 'vim-airline/vim-airline-themes'  " vim-airline theme
-NeoBundle 'joshdick/airline-onedark.vim'    " vim-airline theme
-
-"NeoBundle 'ryanoasis/vim-devicons'          " Nerd font icons
-
-" Basic configuration
-NeoBundle 'Yggdroot/indentLine'             " indent guide
-NeoBundle 'jiangmiao/auto-pairs'            " auto close bracets
-NeoBundle 'kien/rainbow_parentheses.vim'    " bracket color support
-NeoBundle 'gorodinskiy/vim-coloresque'      " Color preview
-
-" Extended feature
-NeoBundle 'sjl/gundo.vim'                   " Undo tree
-NeoBundle 'chrisbra/NrrwRgn'                " Narrow Range
-NeoBundle 'scrooloose/nerdcommenter'        " commenter
-
-" Development
-NeoBundle 'Shougo/neocomplete.vim'          " autocomplete
-NeoBundle 'SirVer/ultisnips'                " snippet module
-NeoBundle 'honza/vim-snippets'              " snippets
-NeoBundle 'airblade/vim-rooter'             " Automatic change working dir
-NeoBundle 'tpope/vim-fugitive'              " Git commands for vim
-NeoBundle 'scrooloose/nerdtree'             " project navigator
-NeoBundle 'majutsushi/tagbar'               " outline class viewer
-NeoBundle 'Shougo/context_filetype.vim'     " context filetype for neocomplete
-NeoBundle 'xolox/vim-easytags'              " auto ctags
-NeoBundle 'xolox/vim-misc'                  " Misc functions - helper for other plugins
-NeoBundle 'Chiel92/vim-autoformat'          " Code formatter
-NeoBundle 'airblade/vim-gitgutter'          " Git left column
-NeoBundle 'mattn/emmet-vim'                 " HTML/CSS Quick coding
-NeoBundle 'godlygeek/tabular'               " vim-markdown dependency
-NeoBundle 'plasticboy/vim-markdown'         " markdown control
-NeoBundle 'jtratner/vim-flavored-markdown'  " github markdown for vim
-NeoBundle 'hynek/vim-python-pep8-indent'    " Python indentation helper
-NeoBundle 'bookletchoir/vim-vala'           " Vala Syntax Highlight
-
-" Input method
-NeoBundle 'vim-scripts/fcitx.vim'           " Fcitx Input Method autoswitch
-
-" Misc
-NeoBundle 'tmux-plugins/vim-tmux'           " tmuxconf color
-NeoBundle 'vimperator/vimperator.vim'       " vimperatorrc color
-NeoBundle 'PotatoesMaster/i3-vim-syntax'
 
 " }}}
 
-" Required:
-call neobundle#end()
+" Plugin Manager {{{
 
-" Required:
-filetype plugin indent on
+if has('nvim')
+    call plug#begin('~/.config/nvim/bundle')
+else
+    call plug#begin('~/.vim/bundle')
+endif
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
+" Bundle list {{{
+" Appearance
+"Plug 'flazz/vim-colorschemes'
+"Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+"Plug 'morhetz/gruvbox'
+"Plug 'rakr/vim-two-firewatch'
+"Plug 'aliou/moriarty.vim'
+"Plug 'notpratheek/vim-luna'
+"Plug 'mhartington/oceanic-next'
+Plug 'joshdick/onedark.vim'
 
-" Plugin Configuration
+Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes' | Plug 'joshdick/airline-onedark.vim'
+
+"Plug 'ryanoasis/vim-devicons'          " Nerd font icons
+
+" Basic configuration
+Plug 'Yggdroot/indentLine'             " indent guide
+Plug 'jiangmiao/auto-pairs'            " auto close bracets
+Plug 'kien/rainbow_parentheses.vim'    " bracket color support
+Plug 'gorodinskiy/vim-coloresque'      " Color preview
+
+" Extended feature
+Plug 'sjl/gundo.vim'                   " Undo tree
+Plug 'chrisbra/NrrwRgn'                " Narrow Range
+Plug 'scrooloose/nerdcommenter'        " commenter
+Plug 'junegunn/fzf.vim'                " fuzzy search  TODO
+
+" Development
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim'
+else
+    Plug 'Shougo/neocomplete.vim'
+endif
+
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' " Snippets
+Plug 'airblade/vim-rooter'             " Automatic change working dir
+Plug 'tpope/vim-fugitive'              " Git commands for vim
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " project navigator
+Plug 'majutsushi/tagbar'               " outline class viewer
+Plug 'Shougo/context_filetype.vim'     " context filetype for neocomplete
+Plug 'xolox/vim-easytags'              " auto ctags
+Plug 'xolox/vim-misc'                  " Misc functions - helper for other plugins
+Plug 'Chiel92/vim-autoformat'          " Code formatter
+Plug 'airblade/vim-gitgutter'          " Git left column
+Plug 'mattn/emmet-vim'                 " HTML/CSS Quick coding
+Plug 'godlygeek/tabular'               " vim-markdown dependency
+Plug 'plasticboy/vim-markdown'         " markdown control
+Plug 'jtratner/vim-flavored-markdown'  " github markdown for vim
+Plug 'hynek/vim-python-pep8-indent'    " Python indentation helper
+Plug 'bookletchoir/vim-vala'           " Vala Syntax Highlight
+Plug 'chrisbra/csv.vim'                " CSV extended features
+
+" Input method
+Plug 'vim-scripts/fcitx.vim'           " Fcitx Input Method autoswitch
+
+" Misc
+Plug 'tmux-plugins/vim-tmux'           " tmuxconf color
+Plug 'vimperator/vimperator.vim'       " vimperatorrc color
+Plug 'PotatoesMaster/i3-vim-syntax'
+
+" }}}
+
+call plug#end()
+
+" }}}
+
+" Plugin Configuration {{{
 
 " vim-airline {{{
 
@@ -97,7 +87,11 @@ NeoBundleCheck
 let g:powerline_loaded = 1
 let g:powerline_pycmd = 'py3'
 
-set laststatus=2
+if !has('nvim')
+    set laststatus=2
+endif
+
+set incsearch
 
 " Exclude preview buffer
 let g:airline_exclude_preview = 1
@@ -109,29 +103,17 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-
-"if has("gui_running")
-"    "old vim-powerline symbols
-"    let g:airline_left_sep = '⮀'
-"    let g:airline_left_alt_sep = '⮁'
-"    let g:airline_right_sep = '⮂'
-"    let g:airline_right_alt_sep = '⮃'
-"    let g:airline_symbols.branch = '⭠'
-"    let g:airline_symbols.readonly = '⭤'
-"    let g:airline_symbols.linenr = '⭡'
-"    let g:airline_symbols.paste = 'Þ'
-"    let g:airline_symbols.whitespace = 'Ξ'
-"else
-    let g:airline_left_sep = ''
-    let g:airline_left_alt_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_right_alt_sep = ''
-    let g:airline_symbols.branch = ''
-    let g:airline_symbols.readonly = ''
-    let g:airline_symbols.linenr = ''
-    let g:airline_symbols.paste = 'Þ'
-    let g:airline_symbols.whitespace = 'Ξ'
-"endif
+" Powerline glyph
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
 
 " Tabline enhancement
 let g:airline#extensions#tabline#enabled = 1
@@ -156,7 +138,7 @@ let g:airline#extensions#tabline#show_tab_type = 1
 "let g:airline#extensions#tabline#show_close_button = 1
 "let g:airline#extensions#tabline#close_symbol = 'X'
 
- " Syntastic integration
+" Syntastic integration
 let g:airline#extensions#syntastic#enabled = 1
 
 " gitgutter/signify/changesPlugin//quickfixsigns intergration
@@ -204,11 +186,7 @@ let g:airline#extensions#windowswap#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 
 " Airline Theme
-if has('gui_running')
-    let g:airline_theme = "molokai"
-else
-    let g:airline_theme = "wombat"
-endif
+let g:airline_theme = "onedark"
 
 " }}}
 
@@ -312,39 +290,39 @@ let g:indentLine_char = '┆'
 "let g:ycm_register_as_syntastic_checker = 1
 
 "let g:ycm_filetype_whitelist = {
-            "\ '*': 1
-            "\}
+"\ '*': 1
+"\}
 
 "let g:ycm_filetype_blacklist = {
-            "\ 'tagbar': 1,
-            "\ 'qf': 1,
-            "\ 'notes': 1,
-            "\ 'markdown': 1,
-            "\ 'unite': 1,
-            "\ 'text': 1,
-            "\ 'vimwiki': 1,
-            "\ 'pandoc': 1,
-            "\ 'infolog': 1,
-            "\ 'mail': 1
-            "\}
+"\ 'tagbar': 1,
+"\ 'qf': 1,
+"\ 'notes': 1,
+"\ 'markdown': 1,
+"\ 'unite': 1,
+"\ 'text': 1,
+"\ 'vimwiki': 1,
+"\ 'pandoc': 1,
+"\ 'infolog': 1,
+"\ 'mail': 1
+"\}
 
 "let g:ycm_filetype_specific_completion_to_disable = {
-            "\ 'gitcommit': 1
-            "\}
+"\ 'gitcommit': 1
+"\}
 
 "let g:ycm_semantic_triggers =  {
-            "\   'c' : ['->', '.'],
-            "\   'objc' : ['->', '.'],
-            "\   'ocaml' : ['.', '#'],
-            "\   'cpp,objcpp' : ['->', '.', '::'],
-            "\   'perl' : ['->'],
-            "\   'php' : ['->', '::'],
-            "\   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-            "\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
-            "\   'ruby' : ['.', '::'],
-            "\   'lua' : ['.', ':'],
-            "\   'erlang' : [':'],
-            "\ }
+"\   'c' : ['->', '.'],
+"\   'objc' : ['->', '.'],
+"\   'ocaml' : ['.', '#'],
+"\   'cpp,objcpp' : ['->', '.', '::'],
+"\   'perl' : ['->'],
+"\   'php' : ['->', '::'],
+"\   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
+"\   'ruby' : ['.', '::'],
+"\   'lua' : ['.', ':'],
+"\   'erlang' : [':'],
+"\ }
 
 " Recompile and check for errors
 "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
@@ -357,81 +335,85 @@ let g:indentLine_char = '┆'
 
 " NeoComplete {{{
 
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+if !has('nvim')
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+    " Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+                \ 'default' : '',
+                \ 'vimshell' : $HOME.'/.vimshell_hist',
+                \ 'scheme' : $HOME.'/.gosh_completions'
+                \ }
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+        return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+        " For no inserting <CR> key.
+        "return pumvisible() ? "\<C-y>" : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    " Close popup by <Space>.
+    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+    " AutoComplPop like behavior.
+    "let g:neocomplete#enable_auto_select = 1
+
+    " Shell like behavior(not recommended).
+    "set completeopt+=longest
+    "let g:neocomplete#enable_auto_select = 1
+    "let g:neocomplete#disable_auto_complete = 1
+    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+    " For perlomni.vim setting.
+    " https://github.com/c9s/perlomni.vim
+    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
 
 " deoplete {{{
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_start_length = 0
+if has('nvim')
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#auto_complete_start_length = 0
+endif
 " }}}
 
 " UltiSnips {{{
@@ -466,7 +448,9 @@ let g:UltiSnipsListSnippets = "<c-x>"
 "highlight SyntasticErrorSign guifg=white guibg=pink
 "highlight SyntasticWarningSign guifg=black guibg=yellow
 
-"set sessionoptions-=blank
+"if !has('nvim')
+"   set sessionoptions-=blank
+"endif
 
 "let g:syntastic_mode_map = { 'passive_filetypes': ['sbt', 'java'] }
 
@@ -555,7 +539,12 @@ au Syntax * RainbowParenthesesLoadChevrons
 
 " vim-easytag {{{
 let b:easytags_auto_highlight = 0
-let g:easytags_file = '$HOME/.vim/tags/others'
+
+if has('nvim')
+    let g:easytags_file = '$HOME/.config/nvim/tags/others'
+else
+    let g:easytags_file = '$HOME/.vim/tags/others'
+endif
 
 " }}}
 
@@ -574,10 +563,10 @@ let g:gitgutter_max_signs = 1000
 " }}}
 
 " CtrlP {{{
-let g:ctrlp_max_height = 30
-set wildignore+=*.pyc
-set wildignore+=*_build/*
-set wildignore+=*/coverage/*
+"let g:ctrlp_max_height = 30
+"set wildignore+=*.pyc
+"set wildignore+=*_build/*
+"set wildignore+=*/coverage/*
 " }}}
 
 " jedi-vim {{{
@@ -597,63 +586,16 @@ set wildignore+=*/coverage/*
 "let g:pydiction_menu_height = 5
 " }}}
 
-" python-mode (heavy conflict) {{{
-"let g:pymode_options = 0
-
-"let g:pymode_trim_whitespaces = 1
-"let g:pymode_options_max_line_length = 79
-
-"let g:pymode_indent = 1
-"let g:pymode_folding = 1
-
-"let g:pymode_doc = 1
-"let g:pymode_doc_bind = '<F1>'
-
-"let g:pymode_run = 1
-"let g:pymode_run_bind = '<C-R>'
-
-"let g:pymode_breakpoint = 1
-"let g:pymode_breakpoint_bind = '<leader>m'
-
-"let g:pymde_lint = 0
-
-"let g:pymode_rope = 1
-"let g:pymode_rope_show_doc_bind = '<leader>d'
-"let g:pymode_rope_regenerate_on_write = 1
-
-"let g:pymode_rope_completion = 0
-"let g:pymode_rope_completion_on_dot = 1
-"let g:pymode_rope_completion_bind = '<C-Space>'
-"let g:pymode_rope_autoimport = 0
-""let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
-"let g:pymode_rope_autoimport_after_complete = 0
-
-"let g:pymode_rope_goto_definition_bind = '<leader>['
-"if has('gui_running')
-    "let g:pymode_rope_goto_definition_cmd = 'e'
-"else
-    "let g:pymode_rope_goto_definition_cwd = 'vnew'
-"endif
-
-"let g:python_rope_rename_bind = '<leader>r'
-"let g:python_rope_rename_modile_bind = '<leader>R'
-
-"let g:pymode_rope_autoimport_bind = '<leader>A'
-"let g:pymode_conver_module_to_package_bind =
-"let g:pymode_rope_extract_method_bind = '<C-c>rm'
-"let g:pymode_rope_extract_variable_bind = '<C-c>rl'
-
-" }}}
-
 " emmet-vim {{{
 "let g:user_emmet_leader_key='<C-x>'
 " }}}
 
 " vim-rooter {{{
 
-"let g:rooter_use_lcd = 0
-"let g:rooter_change_directory_for_non_project_files = 1
+let g:rooter_use_lcd = 1
+let g:rooter_resolve_links = 0
 "let g:rooter_silent_chdir = 1
+let g:rooter_change_directory_for_non_project_files = 'current'
 
 " }}}
 
@@ -681,12 +623,14 @@ let g:gundo_close_on_revert=1
 let g:vim_markdown_folding_disabled = 1
 "}}}
 
-" END NeoBundle Plugin Manager
+" END NeoBundle Plugin Manager }}}
 
-" User Configuration
+" User Configuration {{{
 
 " Common settings {{{
 
+" set terminal
+"set term=screen-256color
 
 " remap leader key
 let mapleader = ","
@@ -713,14 +657,19 @@ syntax on
 set cursorline
 
 " toggle menu for vim completion
-set wildmenu
+if !has('nvim')
+    set wildmenu
+endif
 
 " Limit completion popup height
 set pumheight=20
 
 " only redraw vim window when needed
 set lazyredraw
-set ttyfast
+
+if !has('nvim')
+    set ttyfast
+endif
 
 " folding
 set foldenable
@@ -739,10 +688,12 @@ vnoremap <Space> zf
 set noshowmode
 
 " Color scheme
-if has('gui_running')
+if !has('nvim') && has('gui_running')
     "color gruvbox
-    color molokai
+    "color molokai
+    color onedark
     set background=dark
+    let g:airline_theme='onedark'
     "colo two-firewatch
     "let g:airline_theme='twofirewatch' " if you have Airline installed and want the associated theme
     "color luna
@@ -750,7 +701,9 @@ if has('gui_running')
 else
     set t_Co=256
     set background=dark
-    color monokain
+    "color monokain
+    color onedark
+    let g:onedark_termcolors=256
 endif
 
 " Tabstop 4 and replace tab with spaces
@@ -778,10 +731,10 @@ let &colorcolumn=81
 " Search function
 if !has('nvim')
     set hlsearch
+set incsearch
 endif
 set ignorecase
 set smartcase
-set incsearch
 
 " Match brackets
 set showmatch
@@ -824,7 +777,7 @@ highlight DiffAdd    ctermbg=20
 
 " GUI settings
 
-if has("gui_running")
+if !has('nvim') && has("gui_running")
     set lines=45 columns=90
     set guifont=Powerline\ Consolas\ 10
     "set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
@@ -838,7 +791,6 @@ if has("gui_running")
 
     set guiheadroom=0
     set linespace=0
-
 endif
 
 " }}}
@@ -847,25 +799,25 @@ endif
 
 " Execute shell command in a new buffer {{{
 function! s:ExecuteInShell(command)
-  let command = join(map(split(a:command), 'expand(v:val)'))
-  let winnr = bufwinnr('^' . command . '$')
-  silent! execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
-  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile number wrap
-  echo 'Execute ' . command . '...'
-  silent! execute 'silent %!'. command
-  silent! execute 'resize ' . line('$')
-  silent! redraw
-  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
-  echo 'Shell command ' . command . ' executed.'
+    let command = join(map(split(a:command), 'expand(v:val)'))
+    let winnr = bufwinnr('^' . command . '$')
+    silent! execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
+    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile number wrap
+    echo 'Execute ' . command . '...'
+    silent! execute 'silent %!'. command
+    silent! execute 'resize ' . line('$')
+    silent! redraw
+    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+    echo 'Shell command ' . command . ' executed.'
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 " }}}
 
 " Restore mouse cursor in previous position {{{
 augroup resCur
-  autocmd!
-  autocmd BufReadPost * call setpos(".", getpos("'\""))
+    autocmd!
+    autocmd BufReadPost * call setpos(".", getpos("'\""))
 augroup END
 " }}}
 
@@ -903,130 +855,106 @@ endfunction
 
 " Add highlighting for function definition in C++ {{{
 function! EnhanceCppSyntax()
-  syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
-  hi def link cppFuncDef Special
+    syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
+    hi def link cppFuncDef Special
 endfunction
 
 " }}}
 
 " Text folding Format {{{
-function! FoldText1()
-  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-  let lines_count = v:foldend - v:foldstart + 1
-  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
-  let foldchar = matchstr(&fillchars, 'fold:\zs.')
-  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(foldchar, 8)
-  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
-endfunction
-
-fu! FoldText2()
-    "get first non-blank line
-    let fs = v:foldstart
-    while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
-    endwhile
-    if fs > v:foldend
-        let line = getline(v:foldstart)
-    else
-        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-    endif
-
-    let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-    let foldSize = 1 + v:foldend - v:foldstart
-    let foldSizeStr = " " . foldSize . " lines "
-    let foldLevelStr = repeat("+--", v:foldlevel)
-    let lineCount = line("$")
-    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-    let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
-endf
-
-function! FoldText1()
-    let fs = v:foldstart
-    while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
-    endwhile
-    let line = '# ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-
-    let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-    let foldSize = 1 + v:foldend - v:foldstart
-    let foldSizeStr = " " . foldSize . " lines "
-    let foldLevelStr = repeat("+--", v:foldlevel)
-    let lineCount = line("$")
-    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-    let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
-endf
-
 function! NeatFoldText()
-  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-  let lines_count = v:foldend - v:foldstart + 1
-  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
-  let foldchar = matchstr(&fillchars, 'fold:\zs.')
-  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(foldchar, 8)
-  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+    let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+    let lines_count = v:foldend - v:foldstart + 1
+    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let foldchar = matchstr(&fillchars, 'fold:\zs.')
+    let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+    let foldtextend = lines_count_text . repeat(foldchar, 8)
+    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+    return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 
 set foldtext=NeatFoldText()
-
-"set foldtext=FoldText1()
-
 " }}}
 
 " Trim whitespaces {{{
 function! ShowSpaces(...)
-  let @/='\v(\s+$)|( +\ze\t)'
-  let oldhlsearch=&hlsearch
-  if !a:0
-    let &hlsearch=!&hlsearch
-  else
-    let &hlsearch=a:1
-  end
-  return oldhlsearch
+    let @/='\v(\s+$)|( +\ze\t)'
+    let oldhlsearch=&hlsearch
+    if !a:0
+        let &hlsearch=!&hlsearch
+    else
+        let &hlsearch=a:1
+    end
+    return oldhlsearch
 endfunction
 
 function! TrimSpaces() range
-  let oldhlsearch=ShowSpaces(1)
-  execute a:firstline.",".a:lastline."substitute ///gec"
-  let &hlsearch=oldhlsearch
+    let oldhlsearch=ShowSpaces(1)
+    execute a:firstline.",".a:lastline."substitute ///gec"
+    let &hlsearch=oldhlsearch
 endfunction
 " }}}
 
 " }}}
 
-" vimfiles setting {{{
+" vimfiles setting " TODO migrate to nvim directory {{{
 
 " Auto reload vim settings
-augroup autoreload
-    au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
+if !has('nvim')
+    augroup autoreload
+        au!
+        au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+    augroup END
+endif
 
 " backup dir
 " Save your backups to a less annoying place than the current directory.
 " If you have .vim-backup in the current directory, it'll use that.
 " Otherwise it saves it to ~/.vim/backup or . if all else fails.
-if isdirectory($HOME . '/.vim/backup') == 0
-    :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+if has('nvim')
+    if isdirectory($HOME . '/.config/nvim/backup') == 0
+        :silent !mkdir -p ~/.config/nvim/backup >/dev/null 2>&1
+    endif
+else
+    if isdirectory($HOME . '/.vim/backup') == 0
+        :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+    endif
 endif
 
 set backupdir-=.
 set backupdir+=.
 set backupdir-=~/
-set backupdir^=~/.vim/backup/
+
+if has('nvim')
+    set backupdir^=~/.config/nvim/backup/
+else
+    set backupdir^=~/.vim/backup/
+endif
+
 set backup
 
 " swap dir
 " Save your swp files to a less annoying place than the current directory.
 " If you have .vim-swap in the current directory, it'll use that.
 " Otherwise it saves it to ~/.vim/swap, ~/tmp or .
-if isdirectory($HOME . '/.vim/swap') == 0
-    :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+if has('nvim')
+    if isdirectory($HOME . '/.config/nvim/swap') == 0
+        :silent !mkdir -p ~/.config/nvim/swap >/dev/null 2>&1
+    endif
+else
+    if isdirectory($HOME . '/.vim/swap') == 0
+        :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+    endif
 endif
+
 set directory=./.vim-swap//
-set directory+=~/.vim/swap//
+
+if has('nvim')
+    set directory+=~/.config/nvim/swap//
+else
+    set directory+=~/.config/nvim/swap//
+endif
+
 set directory+=~/tmp//
 set directory+=.
 
@@ -1042,20 +970,40 @@ if exists("+undofile")
     " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
     " :help undo-persistence
     " This is only present in 7.3+
+    if has('nvim')
+        if isdirectory($HOME . '/.config/vim/undo') == 0
+            :silent !mkdir -p ~/.config/vim/undo > /dev/null 2>&1
+        endif
+    else
     if isdirectory($HOME . '/.vim/undo') == 0
-        :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+            :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+        endif
     endif
+
     set undodir=./.vim-undo//
-    set undodir+=~/.vim/undo//
+
+    if has('nvim')
+        set undodir+=~/.config/nvim/undo//
+    else
+        set undodir+=~/.config/nvim/undo//
+    endif
+
     set undofile
 endif
 
 " Expand Undo
 set undofile
-set undodir=$HOME/.vim/history
+
+if has('nvim')
+    set undodir=$HOME/.config/nvim/history
+else
+    set undodir=$HOME/.vim/history
+endif
 
 " tagfiles
-set tags=./tags,tags
+if !has('nvim')
+    set tags=./tags,tags
+endif
 
 " }}}
 
@@ -1074,10 +1022,10 @@ nmap <F1> <nop>
 map <F2> :set hlsearch!<CR>
 
 " Navigation through windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " Open NERDTree
 nmap <Leader>e :NERDTreeToggle<CR><C-w>=
@@ -1185,7 +1133,7 @@ augroup filetype_c
     autocmd FileType c autocmd BufWritePre <buffer> :%s/\s\+$//e
     "autocmd FileType c set textwidth=80
 
-    if has('gui_running')
+    if !has('nvim') && has('gui_running')
         "autocmd FileType c set lines=50 columns=120
     endif
 augroup END
@@ -1206,7 +1154,7 @@ augroup filetype_cpp
 
     autocmd Syntax cpp call EnhanceCppSyntax()
 
-    if has('gui_running')
+    if !has('nvim') && has('gui_running')
         "autocmd FileType cpp set lines=50 columns=120
     endif
 augroup END
@@ -1265,7 +1213,7 @@ augroup filetype_java
     "autocmd FileType java TagbarOpen
     autocmd FileType java autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-    if has ('gui_running')
+    if !has('nvim') && has('gui_running')
         "autocmd FileType java set lines=50 columns=140
     endif
 augroup END
@@ -1320,19 +1268,19 @@ augroup END
 " PHP {{{
 " Override syntax highlighting
 function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
+    hi! def link phpDocTags  phpDefine
+    hi! def link phpDocParam phpType
 endfunction
 
 augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
+    autocmd!
+    autocmd FileType php call PhpSyntaxOverride()
 augroup END
 
 augroup filetype_php
     autocmd!
     autocmd FileType php vmap <C-f> :Autoformat<CR>
-    if has('gui_running')
+    if !has('nvim') && has('gui_running')
         autocmd FileType php nmap <F5> :!urxvtc -hold -e php "%:p" <CR><CR>
     else
         autocmd FileType php nmap <F5> :!clear && php "%:p"<CR>
@@ -1354,7 +1302,7 @@ augroup filetype_py
     autocmd FileType python autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd FileType python call PythonKeywordHighlight()
 
-    if has('gui_running')
+    if !has('nvim') && has('gui_running')
         "autocmd FileType python set lines=50 columns=120
         autocmd FileType python nmap <F5> :!urxvtc -hold -e ipython "%:p"<CR><CR>
         autocmd FileType python nmap <F6> :!urxvtc --title "PuDB - A full-screen, console-based visual debugger for Python" -depth 0 -bg '\#000000' -geometry 130x55 -e ipython -m pudb "%:p" <CR><CR>
@@ -1374,7 +1322,7 @@ augroup filetype_rb
     "autocmd FileType ruby TagbarOpen
     autocmd FileType ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-    if has ('gui_running')
+    if !has('nvim') && has('gui_running')
         "autocmd FileType ruby set lines=50 columns=120
     endif
 augroup END
@@ -1440,9 +1388,9 @@ augroup END
 
 " zsh {{{
 "augroup filetype_zsh
-    "autocmd!
-    "autocmd filetype zsh set syn=sh
-    "autocmd filetype zsh nmap <F5> :!zsh "%:p"
+"autocmd!
+"autocmd filetype zsh set syn=sh
+"autocmd filetype zsh nmap <F5> :!zsh "%:p"
 "augroup END
 " }}}
 " }}}
@@ -1460,4 +1408,4 @@ augroup autostart
 augroup END
 " }}}
 
-" END User Configuration
+" END User Configuration }}}
