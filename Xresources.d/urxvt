@@ -73,8 +73,10 @@ URxvt.colorBD:  #d7d7d7
 URxvt.colorUL:  #87afd7
 
 ! Fonts
-URxvt.font:             xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:antialias=true:hinting=true;xft:FontAwesome:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:antialias=true:hinting=true
-URxvt.boldFont:         xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:bold:antialias=true:hinting=true;xft:FontAwesome:bold:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:antialias=true:hinting=true
-URxvt.italicFont:       xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:italic:antialias=true:hinting=true;xft:FontAwesome:italic:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:italic:antialias=true:hinting=true
-URxvt.boldItalicFont:   xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:bold:italic:antialias=true:hinting=true;xft:FontAwesome:bold:italic:antialias=true:hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:italic:antialias=true:hinting=true
+URxvt.font:             xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14\
+                        xft:FontAwesome;\
+                        xft:WenQuanYi Micro Hei Mono Light
+!URxvt.boldFont:         xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:bold::hinting=true;xft:FontAwesome:bold::hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold::hinting=true
+!URxvt.italicFont:       xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:italic::hinting=true;xft:FontAwesome:italic::hinting=true;xft:WenQuanYi Micro Hei Mono Light:italic::hinting=true
+!URxvt.boldItalicFont:   xft:UbuntuMonoDerivativePowerline Nerd Font:pixelsize=14:bold:italic::hinting=true;xft:FontAwesome:bold:italic::hinting=true;xft:WenQuanYi Micro Hei Mono Light:bold:italic::hinting=true
 

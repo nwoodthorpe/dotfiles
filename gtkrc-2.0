@@ -1,7 +1,7 @@
 # GTK2.0 Config
 
 gtk-theme-name = "Numix-Frost"
-gtk-font-name = "Trebuchet MS 10"
+gtk-font-name = "Ubuntu 10"
 gtk-icon-theme-name = "Numix-Square"
 gtk-fallback-icon-theme="Numix"
 gtk-xft-antialias = 1

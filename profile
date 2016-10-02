@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Custom directories
-export LOCAL_BIN_DIR="$HOME/.local/bin"
-export LOCAL_SOFTWARE_DIR="$HOME/Softwares"
-export LOCAL_REPOSITORY_DIR="$HOME/Repositories"
+export LOCAL_BIN_DIR="${HOME}/.local/bin"
+export LOCAL_SOFTWARE_DIR="${HOME}/Softwares"
+export LOCAL_REPOSITORY_DIR="${HOME}/Repositories"
 
 #SSH_ASKPASS=/bin/false
 export DESKTOP_SESSION=gnome
-export TERM="rxvt-unicode-256color"
+#export TERM="rxvt-unicode-256color"
 
 # Qt 5.7 compatibility fix
 # Related package: qt5-styleplugin qt5ct (aur)
@@ -16,29 +16,29 @@ export TERM="rxvt-unicode-256color"
 
 # CCache path
 export CCACHE_PATH="/usr/bin"
-export CCACHE_DIR="$HOME/.local/ccache"
-export PATH="/usr/lib/colorgcc/bin:$PATH"
+export CCACHE_DIR="${HOME}/.local/ccache"
+export PATH="/usr/lib/colorgcc/bin:${PATH}"
 
 # Android sdk location
-export ANDROID_HOME="$HOME/.local/android/sdk"
-export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
+export ANDROID_HOME="${HOME}/.local/android/sdk"
+export PATH="${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools:${PATH}"
 
 # Virtual environments
-export PYENV_ROOT="$HOME/.local/env/pyenv"
-export RBENV_ROOT="$HOME/.local/env/rbenv"
-export NODENV_ROOT="$HOME/.local/env/nodenv"
-export PATH="$PYENV_ROOT/bin:$RBENV_ROOT/bin:$NODENV_ROOT/bin:$PATH"
+export PYENV_ROOT="${HOME}/.local/env/pyenv"
+export RBENV_ROOT="${HOME}/.local/env/rbenv"
+export NODENV_ROOT="${HOME}/.local/env/nodenv"
+export PATH="${PYENV_ROOT}/bin:${RBENV_ROOT}/bin:${NODENV_ROOT}/bin:${PATH}"
 
 eval "$(pyenv init -)"
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
 
 # Set local bin on top of path
-export PATH="$LOCAL_BIN_DIR:$PATH"
+export PATH="${LOCAL_BIN_DIR}:${PATH}"
 
 # Wine options
 export WINEARCH=win32
-export WINEPREFIX="$HOME/.local/wine/win32"
+export WINEPREFIX="${HOME}/.local/wine/win32"
 export WINEDLLOVERRIDES="winemenubuilder.exe=d"
 
 # Java options
@@ -58,5 +58,5 @@ export XMODIFIERS=@im=fcitx
 export SAL_USE_VCLPLUGIN=gtk
 #SAL_USE_VCLPLUGIN=gtk3
 
-[ -n "$XDG_SESSION_DESKTOP" ] && xset m 2 0 2>/dev/null
+[ -n "${XDG_SESSION_DESKTOP}" ] && xset m 2 0 2>/dev/null
 
