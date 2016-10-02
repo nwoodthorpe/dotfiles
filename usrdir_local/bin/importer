@@ -44,7 +44,7 @@ def numbering(str_):
     except AttributeError:
         return ""
 
-    return str_ if int(str_) >= 10 else "0" + str_
+    return str_ if int(str_) >= 10 else "0{}".format(int(str_))
 
 
 def randstr(lenth):
