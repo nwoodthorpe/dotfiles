@@ -1,6 +1,0 @@
-#!/bin/bash
-
-export LANG=ja_JP.utf8
-export WINEDEBUG=fixme-all
-
-exec urxvt -e wine "$HOME/.local/games/New Super Marisa Land/6kinoko.exe" 1>/dev/null

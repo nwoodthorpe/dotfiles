@@ -1,8 +1,0 @@
-#!/bin/bash
-
-title="Ranger - A text-based file manager written in Python"
-
-[ "$#" -eq 0 ] && args="$HOME" || args="$@"
-
-urxvtc -title "${title}" -depth 0 -bg '#222222' -g 130x40 \
-    -e zsh -c "ranger \"${args}\""

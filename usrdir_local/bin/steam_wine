@@ -1,8 +1,0 @@
-#!/bin/bash
-
-export WINEARCH=win32
-export WINEPREFIX="$HOME/.local/wine/steam"
-export WINEDLLOVERRIDES="winemenubuilder.exe=d"
-export WINEDEBUG=-all
-
-exec urxvt -e wine "C:\\Program Files\\Steam\\Steam.exe"

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-export GTK2_RC_FILES=$HOME/dotfiles/gtkrc-2.0-dark
-export QT_STYLE_OVERRIDE=gtk2
-export QT_QPA_PLATFORMTHEME=qt5ct
-
-exec /usr/bin/tiled
