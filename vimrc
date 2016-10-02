@@ -13,7 +13,7 @@ call plug#begin('~/.config/nvim/bundle')
 "Plug 'mhartington/oceanic-next'
 Plug 'joshdick/onedark.vim'
 
-Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes' | Plug 'joshdick/airline-onedark.vim'
+Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
 "Plug 'ryanoasis/vim-devicons'          " Nerd font icons
 
