@@ -85,8 +85,10 @@ nmap <C-r> :reader<CR>
 "noremap L :forward
 noremap J :tabnext<CR>
 noremap K :tabprevious<CR>
-noremap j <C-d>
-noremap k <C-u>
+nnoremap j <C-d>
+nnoremap k <C-u>
+nnoremap h <C-o>
+nnoremap l <C-i>
 
 " }}}
 
