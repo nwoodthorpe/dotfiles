@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=/home/bookletchoir/.config/cinnamon-autostart
-X-GNOME-Autostart-enabled=true
-NoDisplay=false
-Hidden=false
-Name[C]=Autostart Script
-Comment[C]=A script contains startup applications and environments.
-X-GNOME-Autostart-Delay=0
