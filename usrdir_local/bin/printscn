@@ -86,7 +86,11 @@ if [ ! -e "$FULL_PATH" ]; then
     notify-send "Failed to take screenshot"
     exit 1
 else
-    notify-send "Screenshot captured"
+    if [ "$UPLOAD" = "yes" ]; then
+        notify-send "Screenshot captured. Uploading..."
+    else
+        notify-send "Screenshot captured"
+    fi
 fi
 
 

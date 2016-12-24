@@ -102,7 +102,7 @@ get_image_cache && copy_to_clipboard && notify && exit 0
 {[ ! -f "$lockfile" ] && touch "$lockfile"} || {notify-send "File is being uploaded" && exit 1}
 
 # Start uploading for number of $retry times
-notify-send "Uploading file..."
+#notify-send "Uploading file..."
 
 for i in {0..$retry}; do
     # Notify if upload failed

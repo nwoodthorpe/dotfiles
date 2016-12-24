@@ -43,6 +43,8 @@ export WINEARCH=win32
 export WINEPREFIX="${HOME}/.local/wine/win32"
 export WINEDLLOVERRIDES="winemenubuilder.exe=d"
 
+# Java environments
+export JAVA_HOME="/usr/lib/jvm/default"
 export FT2_SUBPIXEL_HINTING=1
 #export _JAVA_OPTIONS="-Djdk.gtk.version=3"
 

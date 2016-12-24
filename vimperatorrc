@@ -69,7 +69,7 @@ style! -name=indigo-sbmcommentsviewer chrome://* <<EOF
         border: none !important;
     }
 EOF
-
+style -name ublick * #nav-bar * { visibility: visible; }
 " }}}
 
 " commands {{{
