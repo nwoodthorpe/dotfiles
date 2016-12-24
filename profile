@@ -9,11 +9,6 @@ export LOCAL_REPOSITORY_DIR="${HOME}/Repositories"
 export DESKTOP_SESSION=gnome
 #export TERM="rxvt-unicode-256color"
 
-# Qt 5.7 compatibility fix
-# Related package: qt5-styleplugin qt5ct (aur)
-#export QT_STYLE_OVERRIDE=gtk2
-#export QT_QPA_PLATFORMTHEME=qt5ct
-
 # CCache path
 export CCACHE_PATH="/usr/bin"
 export CCACHE_DIR="${HOME}/.local/ccache"
@@ -36,12 +31,18 @@ eval "$(nodenv init -)"
 # Set local bin on top of path
 export PATH="${LOCAL_BIN_DIR}:${PATH}"
 
+# pacaur options
+export AURDEST="${XDG_LOCAL_DiR:=$HOME/.local}/aur/pkgbuild"
+export PKGDEST="${XDG_LOCAL_DiR:=$HOME/.local}/aur/pkg"
+export SRCDEST="${XDG_LOCAL_DiR:=$HOME/.local}/aur/src"
+export LOGDEST="${XDG_LOCAL_DiR:=$HOME/.local}/aur/log"
+export BUILDDIR="${XDG_LOCAL_DiR:=$HOME/.local}/aur/build"
+
 # Wine options
 export WINEARCH=win32
 export WINEPREFIX="${HOME}/.local/wine/win32"
 export WINEDLLOVERRIDES="winemenubuilder.exe=d"
 
-# Java options
 export FT2_SUBPIXEL_HINTING=1
 #export _JAVA_OPTIONS="-Djdk.gtk.version=3"
 
