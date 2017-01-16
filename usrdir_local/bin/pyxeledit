@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec "${LOCAL_SOFTWARE_DIR}/PyxelEdit/PyxelEdit.sh"

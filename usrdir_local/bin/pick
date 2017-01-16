@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec python2 "${LOCAL_REPOSITORY_DIR}/ColourPicker/pick/__main__.py"

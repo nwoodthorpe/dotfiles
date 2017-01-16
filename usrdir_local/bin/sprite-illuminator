@@ -1,0 +1,5 @@
+#!/bin/bash
+
+dirname="${LOCAL_SOFTWARE_DIR}/SpriteIlluminator"
+export LD_LIBRARY_PATH="${dirname}:${LD_LIBRARY_PATH}"
+exec "${dirname}/SpriteIlluminator" "$@"

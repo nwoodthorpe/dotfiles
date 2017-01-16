@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+local geometry="100x50"
+
+exec urxvtc -geometry "${geometry}" \
+            -e nvim "$@"

@@ -1,0 +1,4 @@
+#!/bin/bash
+# fake xterm using urxvt for file manager apps
+
+urxvtc -hold -e "${@:2}"
