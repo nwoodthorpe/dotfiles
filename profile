@@ -9,6 +9,10 @@ export FT2_SUBPIXEL_HINTING=1
 # truetype:interpreter-version=40 (minimal - default)
 export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
 
+# Qt uniform theme
+# dependencies: qt5-styleplugins
+export QT_QPA_PLATFORMTHEME='gtk2'
+
 # Custom directories
 export LOCAL_BIN_DIR="${HOME}/.local/bin"
 export LOCAL_SOFTWARE_DIR="${HOME}/Softwares"
