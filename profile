@@ -1,9 +1,20 @@
 #!/bin/bash
 
+# Freetype2 subpixel hinting
+# 0 = disabled, 1 = infinality, 2 = minimal
+export FT2_SUBPIXEL_HINTING=1
+# Possible values are 
+# truetype:interpreter-version=35 (classic mode/2.6 default)
+# truetype:interpreter-version=38 ("Infinality" mode)
+# truetype:interpreter-version=40 (minimal - default)
+export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
+
 # Custom directories
 export LOCAL_BIN_DIR="${HOME}/.local/bin"
 export LOCAL_SOFTWARE_DIR="${HOME}/Softwares"
 export LOCAL_REPOSITORY_DIR="${HOME}/Repositories"
+
+export LUTRIS_STEAM_RUNTIME="${HOME}/.local/steam_runtime"
 
 #SSH_ASKPASS=/bin/false
 export DESKTOP_SESSION=gnome
@@ -47,6 +58,7 @@ export WINEDLLOVERRIDES="winemenubuilder.exe=d"
 export JAVA_HOME="/usr/lib/jvm/default"
 export FT2_SUBPIXEL_HINTING=1
 #export _JAVA_OPTIONS="-Djdk.gtk.version=3"
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 
 export LANG=en_US.UTF-8
 export LC_TIME=en_GB.UTF-8
