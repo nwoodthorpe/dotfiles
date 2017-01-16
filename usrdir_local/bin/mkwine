@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+WINEENV_SH = """#!/bin/bash
+
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export BASEDIR
+
+WINE=wine
+WINECFG=winecfg
+WINETRICKS=winetricks
+
+WINEARCH=win32
+WINEPREFIX="${BASEDIR}/wineprefix"
+WINEDLLOVERRIDES="winemenubuilder.exe=d"
+export WINE WINEARCH WINEPREFIX WINEDLLOVERRIDES
+"""
+
+WINETRICKS_SH = """#!/bin/bash
+basedir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${basedir}/../.env"
+cd "${BASEDIR}/.."
+exec "${WINETRICKS}" "$@"
+"""
+
+WINECFG_SH = """#!/bin/bash
+basedir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${basedir}/../.env"
+cd "${BASEDIR}/.."
+exec "${WINECFG}" "$@"
+"""
+
+WINE_SH = """#!/bin/bash
+basedir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${basedir}/../.env"
+cd "${BASEDIR}/.."
+exec "${WINE}" "$@"
+"""
+
+RUN_SH = """#!/bin/bash
+basedir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec "${basedir}/bin/wine" "$@"
+"""
+
+
+def log(msg=""):
+    print(msg)
+
+
+def mkbin(filepath, content):
+    with open(filepath, 'w') as f:
+        log("Creating file: {}".format(filepath))
+        f.write(content)
+        # set x permission
+        mode = os.stat(filepath).st_mode
+        mode |= (mode & 0o444) >> 2    # copy R bits to X
+        os.chmod(filepath, mode)
+
+
+def main(basedir):
+    if basedir:
+        if not os.path.isdir(basedir):
+            os.mkdir(basedir)
+            log("Creating directory: {}".format(basedir))
+    else:
+        basedir = os.getcwd()
+        log("Using current directory as root directory")
+
+    if not os.path.isdir(os.path.join(basedir, "bin")):
+        log("Creating directory: {}".format(os.path.join(basedir, "bin")))
+        os.mkdir(os.path.join(basedir, "bin"))
+
+    mkbin(os.path.join(basedir, '.env'), WINEENV_SH)
+    mkbin(os.path.join(basedir, 'run'), RUN_SH)
+    mkbin(os.path.join(basedir, 'bin', 'wine'), WINE_SH)
+    mkbin(os.path.join(basedir, 'bin', 'winetricks'), WINETRICKS_SH)
+    mkbin(os.path.join(basedir, 'bin', 'winecfg'), WINECFG_SH)
+    log()
+    log("Done.")
+
+
+if __name__ == '__main__':
+    main(sys.argv[1] if len(sys.argv) > 1 else "")

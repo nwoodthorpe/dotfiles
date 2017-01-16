@@ -1,0 +1,10 @@
+#!/bin/bash
+
+filename="$@"
+[ -z $filename ] && echo "No filename given, exiting" && exit 1
+
+touch "$filename"
+chmod +x "$filename"
+$EDITOR "$filename"
+
+
