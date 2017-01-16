@@ -1,0 +1,10 @@
+[Nemo Action]
+Active=true
+Name=Search...
+Comment=Search for files and directories
+Exec=catfish %F
+Icon-Name=catfish
+Selection=none
+Extensions=dir;
+Quote=double
+EscapeSpaces=false
