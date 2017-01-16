@@ -2,6 +2,8 @@
 
 NAME="Iowa"
 
+[[ -f "$@" ]] && exec urxvtc -e "$@"
+
 if ( (tmux -q has-session -t "$NAME") ); then
     # Session already exist
 
