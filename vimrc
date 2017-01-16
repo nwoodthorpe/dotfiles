@@ -12,6 +12,7 @@ call plug#begin('~/.config/nvim/bundle')
 "Plug 'notpratheek/vim-luna'
 "Plug 'mhartington/oceanic-next'
 Plug 'joshdick/onedark.vim'
+"Plug 'morhetz/gruvbox'
 
 Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
@@ -57,6 +58,7 @@ Plug 'vim-scripts/fcitx.vim'           " Fcitx Input Method autoswitch
 Plug 'tmux-plugins/vim-tmux'           " tmuxconf color
 Plug 'vimperator/vimperator.vim'       " vimperatorrc color
 Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'Matt-Deacalion/vim-systemd-syntax'
 
 " }}}
 
@@ -469,37 +471,6 @@ let g:lt_quickfix_list_toggle_map = '<leader>q'
 let g:lt_height = 10
 " }}}
 
-" Ruby debugger {{{
-"map <F7>  :call g:RubyDebugger.step()<CR>
-"map <F5>  :call g:RubyDebugger.next()<CR>
-"map <F8>  :call g:RubyDebugger.continue()<CR>
-" }}}
-
-" vim-vebugger {{{
-" TODO reconfig
-
-let g:vebugger_leader='<Leader>d'
-"Hook <F5> to debug mode
-"autocmd FileType ruby map <buffer> <F5> :VBGstartRDebug "%"
-"autocmd filetype cpp nnoremap <F5> :!g++ % -ggdb -o %:r && ./%:r <CR> :VBGstartGDB %:r
-"autocmd FileType python map <buffer> <F5> :VBGstartPDB "%"
-"autocmd FileType scala map <buffer><F5> :!scala "%"
-
-"Toggle breakpoint
-"autocmd filetype ruby map <buffer><F6> :VBGtoggleBreakpointThisLine<CR>
-
-"To next debug point
-"autocmd filetype ruby map <buffer><F7> :VBGcontinue<CR>
-
-
-"autocmd filetype ruby map <buffer><F8> :VBGexecute
-
-" Get value of current visual
-"autocmd filetype ruby map <buffer> vnoremap <F1> :VBGevalSelectedText<CR>
-"autocmd filetype ruby map <buffer> nnoremap <F1> :VBGevalWordUnderCursor<CR>
-
-" }}}
-
 " Rainbow parantheses {{{
 
 let g:rbpt_colorpairs = [
@@ -551,30 +522,6 @@ let g:formatter_cs = ['astyle_cs']
 let g:gitgutter_max_signs = 1000
 " }}}
 
-" CtrlP {{{
-"let g:ctrlp_max_height = 30
-"set wildignore+=*.pyc
-"set wildignore+=*_build/*
-"set wildignore+=*/coverage/*
-" }}}
-
-" jedi-vim {{{
-"let g:jedi#auto_vim_configuration = 0
-"let g:jedi#use_splits_not_buffers = "right"
-"let g:jedi#goto_command = "<leader>d"
-"let g:jedi#goto_assignments_command = "<leader>g"
-"let g:jedi#goto_definitions_command = ""
-"let g:jedi#documentation_command = "<F12>"
-"let g:jedi#usages_command = "<leader>n"
-"let g:jedi#completions_command = "<C-Space>"
-"let g:jedi#rename_command = "<leader>r"
-" }}}
-
-" pydiction {{{
-"let g:pydiction_location = "$HOME/.vim/bundle/pydiction/complete-dict"
-"let g:pydiction_menu_height = 5
-" }}}
-
 " emmet-vim {{{
 "let g:user_emmet_leader_key='<C-x>'
 " }}}
@@ -612,7 +559,7 @@ let g:gundo_close_on_revert=1
 let g:vim_markdown_folding_disabled = 1
 "}}}
 
-" END NeoBundle Plugin Manager }}}
+" END Plugin configs }}}
 
 " User Configuration {{{
 

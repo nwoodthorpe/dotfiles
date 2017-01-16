@@ -1,10 +1,1 @@
-#!/bin/bash
-
-# steam runtime library linking
-#export LD_PRELOAD='/usr/lib/nvidia/libGL.so /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so ./libcxxrt.so /usr/lib32/libstdc++.so.6'
-
-export DBUS_FATAL_WARNINGS=0
-export STEAM_RUNTIME=0
-export STEAM_FRAME_FORCE_CLOSE=1
-
-exec /usr/bin/steam "$@"
+/usr/bin/steam-native

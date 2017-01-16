@@ -89,7 +89,9 @@ nnoremap j <C-d>
 nnoremap k <C-u>
 nnoremap h <C-o>
 nnoremap l <C-i>
-
+"nnoremap t w
+"nnoremap T W
+"nnoremap <S-f> ;w
 " }}}
 
 source! /home/bookletchoir/.vimperatorrc.local

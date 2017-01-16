@@ -25,7 +25,7 @@ rofi.columns:                        1
 rofi.bw:                             1
 rofi.location:                       0
 rofi.padding:                        5
-rofi.yoffset:                        0
+rofi.yoffset:                        -200
 rofi.xoffset:                        0
 rofi.fixed-num-lines:                false
 rofi.terminal:                       urxvtc
