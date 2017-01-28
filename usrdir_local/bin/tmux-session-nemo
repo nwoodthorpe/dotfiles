@@ -2,24 +2,35 @@
 
 NAME="Iowa"
 
-[[ -f "$@" ]] && exec urxvtc -e "$@"
-
 if ( (tmux -q has-session -t "$NAME") ); then
     # Session already exist
 
     if [ -n "$(tmux ls | grep -oP "($NAME)(.*)(attached)")" ]; then
         # Session attached to terminal
         # Request new window for existing session
-        exec tmux new-window -c "$PWD" -t "$NAME"
+
+        if [[ -f "$@" ]]; then
+            exec tmux new-window -t "$NAME" "$@; printf '\n\nPress ENTER to close tab...\n'; read"  # pause output
+        else
+            exec tmux new-window -c "$PWD" -t "$NAME"
+        fi
     else
         # Session not attached
         # Attach session and spawn new window
-        cmd="tmux attach-session -t \"$NAME\" \; new-window -c \"$PWD\""
+        if [[ -f "$@" ]]; then
+            cmd="tmux attach-session -t \"$NAME\" \; new-window -c \"$PWD\" \"$@; printf '\n\nPress ENTER to close tab...\n'; read\""
+        else
+            cmd="tmux attach-session -t \"$NAME\" \; new-window -c \"$PWD\""
+        fi
     fi
 else
     # No sessions available
     # Create new session
-    cmd="tmux new-session -s\"$NAME\" -c \"$PWD\""
+    if [[ -f "$@" ]]; then
+        cmd="tmux new-session -s\"$NAME\" -c \"$PWD\" \"$@; printf '\n\nPress ENTER to close tab...\n'; read\""
+    else
+        cmd="tmux new-session -s\"$NAME\" -c \"$PWD\""
+    fi
 fi
 
 # Request new terminal for new or unattached session
