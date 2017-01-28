@@ -7,11 +7,12 @@ export WINE_BIN="${RUNNER_DIR}/wine/staging-1.9.21-i386/bin/wine"
 export WINECFG_BIN="${RUNNER_DIR}/wine/staging-1.9.21-i386/bin/winecfg"
 export STEAM_BIN="${WINEPREFIX}/drive_c/Program Files/Steam/Steam.exe"
 
-export APP_ID="428550"
+#export APP_ID="428550"
 
-if [[ $1 == "winecfg" ]]; then
-    exec "${WINECFG_BIN}"
-else
-    exec "${WINE_BIN}" "${STEAM_BIN}" "steam://rungameid/${APP_ID}"
-fi
+#if [[ $1 == "winecfg" ]]; then
+#    exec "${WINECFG_BIN}"
+#else
+#    exec "${WINE_BIN}" "${STEAM_BIN}" "steam://rungameid/${APP_ID}"
+#fi
 
+exec ${WINE_BIN} "C:\\Steam\\steamapps\\common\\Momodora RUtM\\MomodoraRUtM.exe"

@@ -1,8 +1,7 @@
 [MIME Cache]
 application/java-archive=java-jar.desktop;
-application/octet-stream=retroarch-gba.desktop;
 application/ogg=tragtor.desktop;mplayer.desktop;mpv.desktop;
-application/pdf=krita.desktop;krita_pdf.desktop;
+application/pdf=zathura-pdf-mupdf.desktop;krita.desktop;krita_pdf.desktop;
 application/pkcs10=gcr-viewer.desktop;
 application/pkcs10+pem=gcr-viewer.desktop;
 application/pkcs12=gcr-viewer.desktop;
