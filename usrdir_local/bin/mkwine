@@ -40,8 +40,9 @@ exec "${WINE}" "$@"
 """
 
 RUN_SH = """#!/bin/bash
+binfile="$@"
 basedir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-exec "${basedir}/bin/wine" "$@"
+exec "${basedir}/bin/wine" "${basedir}/${binfile}"
 """
 
 
@@ -73,7 +74,7 @@ def main(basedir):
         os.mkdir(os.path.join(basedir, "bin"))
 
     mkbin(os.path.join(basedir, '.env'), WINEENV_SH)
-    mkbin(os.path.join(basedir, 'run'), RUN_SH)
+    mkbin(os.path.join(basedir, 'run.sh'), RUN_SH)
     mkbin(os.path.join(basedir, 'bin', 'wine'), WINE_SH)
     mkbin(os.path.join(basedir, 'bin', 'winetricks'), WINETRICKS_SH)
     mkbin(os.path.join(basedir, 'bin', 'winecfg'), WINECFG_SH)
