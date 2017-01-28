@@ -47,11 +47,11 @@ eval "$(nodenv init -)"
 export PATH="${LOCAL_BIN_DIR}:${PATH}"
 
 # pacaur options
-export AURDEST="${XDG_LOCAL_DiR:=$HOME/.local}/aur/pkgbuild"
-export PKGDEST="${XDG_LOCAL_DiR:=$HOME/.local}/aur/pkg"
-export SRCDEST="${XDG_LOCAL_DiR:=$HOME/.local}/aur/src"
-export LOGDEST="${XDG_LOCAL_DiR:=$HOME/.local}/aur/log"
-export BUILDDIR="${XDG_LOCAL_DiR:=$HOME/.local}/aur/build"
+export AURDEST="${XDG_LOCAL_DIR:=$HOME/.local}/aur/pkgbuild"
+export PKGDEST="${XDG_LOCAL_DIR:=$HOME/.local}/aur/pkg"
+export SRCDEST="${XDG_LOCAL_DIR:=$HOME/.local}/aur/src"
+export LOGDEST="${XDG_LOCAL_DIR:=$HOME/.local}/aur/log"
+export BUILDDIR="${XDG_LOCAL_DIR:=$HOME/.local}/aur/build"
 
 # Wine options
 export WINEARCH=win32
