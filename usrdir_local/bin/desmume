@@ -1,0 +1,4 @@
+#!/bin/bash
+
+exec /usr/bin/desmume --load-type=1 --opengl-2d --cpu-mode=1 --frameskip=4 --3d-engine=1 "$@"
+
